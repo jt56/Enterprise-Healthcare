@@ -42,7 +42,7 @@ public class DBDemo {
 	private final String userName = "root";
 
 	/** The password for the MySQL account (or empty for anonymous) */
-	private final String password = "root";
+	private final String password = "CS174a";
 
 	/** The name of the computer running MySQL */
 	private final String serverName = "localhost";
@@ -51,10 +51,10 @@ public class DBDemo {
 	private final int portNumber = 3306;
 
 	/** The name of the database we are testing with (this default is installed with MySQL) */
-	private final String dbName = "test";
+	private final String dbName = "health_information_system";
 	
 	/** The name of the table we are testing with */
-	private final String tableName = "JDBC_TEST";
+	private final String tableName = "TestTable";
 	
 	/**
 	 * Get a new database connection
@@ -93,6 +93,8 @@ public class DBDemo {
 	        if (stmt != null) { stmt.close(); }
 	    }
 	}
+
+//    public boolean executeInsertPatient(Connection conn, String co)
 	
 	/**
 	 * Connect to MySQL and do some stuff.
@@ -110,16 +112,13 @@ public class DBDemo {
 			return;
 		}
 
-		// Create a table
+//		// Create a table
 		try {
 		    String createString =
-			        "CREATE TABLE " + this.tableName + " ( " +
+			        "CREATE TABLE " + this.tableName+ " ( " +
 			        "ID INTEGER NOT NULL, " +
-			        "NAME varchar(40) NOT NULL, " +
-			        "STREET varchar(40) NOT NULL, " +
-			        "CITY varchar(20) NOT NULL, " +
-			        "STATE char(2) NOT NULL, " +
-			        "ZIP char(5), " +
+			        "FIRSTNAME varchar(100) NOT NULL, " +
+			        "LASTNAME varchar(100) NOT NULL, " +
 			        "PRIMARY KEY (ID))";
 			this.executeUpdate(conn, createString);
 			System.out.println("Created a table");
@@ -128,7 +127,29 @@ public class DBDemo {
 			e.printStackTrace();
 			return;
 		}
-		
+
+        //input patient
+        try {
+//            INSERT INTO Books (isbn, title, author, qty_in_stock, price, year_published) VALUES ('2234267890', 'AI: Part 2', 'Joe Moe', '4', 11, 1998);
+
+            String queryString =
+//                    "INSERT INTO Patient " +
+//                            "(patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, xmlhealthcreation)" +
+//                            " VALUES " +
+//                            "(1234, 4321, 666, 'james', NULL, 'jr', 'm', '2015-12-31', '2007-12-31 23:59:59');";
+                    "INSERT INTO  " + this.tableName + " " +
+                            "(ID, FIRSTNAME, LASTNAME)" +
+                            " VALUES " +
+                            "(1234, 'james', 'thompson');";
+            this.executeUpdate(conn, queryString);
+            System.out.println("Inserted into testtable");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not insert user");
+            e.printStackTrace();
+            return;
+        }
+
+
 		// Drop the table
 		try {
 		    String dropString = "DROP TABLE " + this.tableName;
