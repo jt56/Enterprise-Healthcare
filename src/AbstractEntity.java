@@ -4,46 +4,74 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public abstract class AbstractEntity {
-
+    
     /**
      * The name of the MySQL account to use (or empty for anonymous)
      */
-    private final String userName = "root";
+    private static String userName;
 
     /**
      * The password for the MySQL account (or empty for anonymous)
      */
-    private final String password = "CS174a";
+    private static String password;
 
     /**
      * The name of the computer running MySQL
      */
-    private final String serverName = "localhost";
+    private static String serverName;
 
     /**
      * The port of the MySQL server (default is 3306)
      */
-    private final int portNumber = 3306;
+    private static int portNumber;
 
     /**
      * The name of the database we are testing with (this default is installed with MySQL)
      */
-    private final String dbName = "health_information_system";
+    private static String dbName;
     
     /**
      * The name of the table we are testing with
      */
+    private static String incomingProperty = "properties/db_config.properties";
     protected String tableName;
-
     protected String query;
-    
     protected String tableKeys[];
-    
     protected String tableValues[];
+    
+    private Properties loadEnvProperties (String fileName) throws Exception {
+        InputStream is = new FileInputStream(fileName);
+        Properties props = new Properties();
+        props.load(is);
+        is.close();
+        return props;
+    }
 
+    public void setProperties() {
+        File propertyFile = new File(incomingProperty);
 
+        if(propertyFile.exists()) {
+            Properties props = new Properties();
+
+            try {
+                props = loadEnvProperties(incomingProperty);
+            } catch (Exception e) {
+                throw new RuntimeException(incomingProperty + " does not exist.");
+            }
+
+            this.portNumber = Integer.parseInt(props.getProperty("app.port"));
+            this.userName = props.getProperty("app.user");
+            this.password = props.getProperty("app.pass");
+            this.serverName = props.getProperty("app.server");
+            this.dbName = props.getProperty("app.db");
+        }
+    }
+    
     public void createInputString() {
         this.query = "INSERT INTO " + this.tableName + " ( ";
 
@@ -56,7 +84,7 @@ public abstract class AbstractEntity {
         this.query += this.tableKeys[i] + " ) VALUES ( ";
 
         for ( i = 0; i < tableValues.length - 1; i++ ) {
-            this.query += "'" +  this.tableKeys[i] + "', ";
+            this.query += "'" +  this.tableValues[i] + "', ";
         }
 
         this.query += "'" +  this.tableValues[i] + "' );";
@@ -99,6 +127,8 @@ public abstract class AbstractEntity {
      */
     public void run() {
 
+        setProperties();
+        
         // Connect to MySQL
         Connection conn = null;
         try {

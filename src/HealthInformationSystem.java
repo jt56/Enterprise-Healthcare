@@ -2,8 +2,11 @@
 public class HealthInformationSystem {
 
     public static void main(String[] args) {
-        PatientEntity app = new PatientEntity();
-        app.run();
+        PatientEntity p = new PatientEntity();
+        p.run();
+        
+        GuardianEntity g = new GuardianEntity();
+        g.run();
     }
 }
 

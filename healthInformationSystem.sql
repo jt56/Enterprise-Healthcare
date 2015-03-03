@@ -15,17 +15,15 @@ CREATE TABLE Patient(
 	familyname VARCHAR(100),
 	suffix VARCHAR(100),
 	gender VARCHAR(100) NOT NULL,
-# 	birthtime VARCHAR(100) NOT NULL,
-# 	xmlhealthcreation VARCHAR(100)TIME NOT NULL,
-  birthtime VARCHAR(100),
-	xmlhealthcreation VARCHAR(100),
+  birthtime VARCHAR(100) NOT NULL,
+	xmlhealthcreation VARCHAR(100) NOT NULL,
 	PRIMARY KEY(patientid)
 #	FOREIGN KEY (patientrole) REFERENCES Guardians (guardianno)
 );
 
-CREATE TABLE Guardians(
+CREATE TABLE Guardian(
 	guardianno VARCHAR(100),
-    patientid VARCHAR(100),
+  patientid VARCHAR(100),
 	givenname VARCHAR(100),
 	familyname VARCHAR(100),
 	phone VARCHAR(100) NOT NULL,
@@ -56,7 +54,7 @@ CREATE TABLE Insurance_Company(
 
 CREATE TABLE Family_History(
 	relativeid VARCHAR(100),
-    patientid VARCHAR(100),
+  patientid VARCHAR(100),
 	patientrelation VARCHAR(100) NOT NULL,
 	age VARCHAR(100),
 	diagnosis VARCHAR(100) NOT NULL,
@@ -67,7 +65,7 @@ CREATE TABLE Family_History(
 
 CREATE TABLE Allergies(
 	substance VARCHAR(100),
-    patientid VARCHAR(100),
+  patientid VARCHAR(100),
 	reaction VARCHAR(100) NOT NULL,
 	status VARCHAR(100) NOT NULL,
 	PRIMARY KEY(substance, patientid),

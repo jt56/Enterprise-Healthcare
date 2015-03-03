@@ -36,7 +36,7 @@ public class PatientEntity extends AbstractEntity {
     public PatientEntity() {
         this.tableName = "PATIENT";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
-        this.tableValues = new String[]{"pat", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
+        this.tableValues = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
 
         this.createInputString();
         
