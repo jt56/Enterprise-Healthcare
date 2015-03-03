@@ -73,21 +73,18 @@ public abstract class AbstractEntity {
     }
     
     public void createInputString() {
+        int col;
         this.query = "INSERT INTO " + this.tableName + " ( ";
-
-        int i;
-
-        for( i = 0; i < tableKeys.length - 1; i++ ) {
-            this.query += this.tableKeys[i] + ", ";
+        
+        for( col = 0; col < tableKeys.length - 1; col++ ) {
+            this.query += this.tableKeys[col] + ", ";
         }
+        this.query += this.tableKeys[col] + " ) VALUES ( ";
 
-        this.query += this.tableKeys[i] + " ) VALUES ( ";
-
-        for ( i = 0; i < tableValues.length - 1; i++ ) {
-            this.query += "'" +  this.tableValues[i] + "', ";
+        for ( col = 0; col < tableValues.length - 1; col++ ) {
+            this.query += "'" +  this.tableValues[col] + "', ";
         }
-
-        this.query += "'" +  this.tableValues[i] + "' );";
+        this.query += "'" +  this.tableValues[col] + "' );";
     }
     
     public Connection getConnection() throws SQLException {

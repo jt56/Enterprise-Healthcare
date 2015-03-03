@@ -7,6 +7,9 @@ public class HealthInformationSystem {
         
         GuardianEntity g = new GuardianEntity();
         g.run();
+        
+        AuthorEntity a = new AuthorEntity();
+        a.run();
     }
 }
 
