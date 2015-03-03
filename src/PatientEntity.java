@@ -9,23 +9,23 @@ public class PatientEntity extends AbstractEntity {
     
     // patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, xmlHealthCreation
     
-    private String patientid;
+    private static String patientid;
     
-    private String providerid;
+    private static String providerid;
     
-    private String patientrole;
+    private static String patientrole;
     
-    private String givenname;
+    private static String givenname;
     
-    private String familyname;
+    private static String familyname;
     
-    private String suffix;
+    private static String suffix;
     
-    private String gender;
+    private static String gender;
     
-    private String birthtime;
+    private static String birthtime;
     
-    private String xmlHealthCreation;
+    private static String xmlHealthCreation;
     
     /*
     #######################
