@@ -3,26 +3,29 @@ public class HealthInformationSystem {
 
     public static void main(String[] args) {
         String hme_vals[] = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
-        PatientEntity p = new PatientEntity(hme_vals);
-        p.run();
+        PatientEntity pat = new PatientEntity(hme_vals);
+        pat.run();
 
-        GuardianEntity g = new GuardianEntity();
-        g.run();
+        GuardianEntity grd = new GuardianEntity();
+        grd.run();
 
-        AuthorEntity at = new AuthorEntity();
-        at.run();
+        AuthorEntity aut = new AuthorEntity();
+        aut.run();
 
-        InsuranceCompanyEntity ic = new InsuranceCompanyEntity();
-        ic.run();
+        InsuranceCompanyEntity icom = new InsuranceCompanyEntity();
+        icom.run();
         
-        FamilyHistoryEntity fh = new FamilyHistoryEntity();
-        fh.run();
+        FamilyHistoryEntity fhist = new FamilyHistoryEntity();
+        fhist.run();
         
         LabTestReportEntity ltr = new LabTestReportEntity();
         ltr.run();
         
-        AllergyEntity al = new AllergyEntity();
-        al.run();
+        AllergyEntity alrg = new AllergyEntity();
+        alrg.run();
+        
+        PlanEntity pln = new PlanEntity();
+        pln.run();
     }
     
 }

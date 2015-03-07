@@ -1,19 +1,5 @@
-/**
- * Created by heneli on 3/7/15.
- */
+
 public class LabTestReportEntity extends AbstractEntity {
-    /*
-    CREATE TABLE Lab_Test_Reports(
-            labtestresultid VARCHAR(100),
-    patientvisitid VARCHAR(100),
-    labtestperformeddate VARCHAR(100) NOT NULL,
-    labtesttype VARCHAR(100) NOT NULL,
-    testresultvalue VARCHAR(100) NOT NULL,
-    referencerangehigh VARCHAR(100),
-    referencerangelow VARCHAR(100),
-    PRIMARY KEY(labtestresultid, patientvisitid)
-    );
-    */
     
     /*
     #####################
