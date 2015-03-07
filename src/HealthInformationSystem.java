@@ -9,8 +9,8 @@ public class HealthInformationSystem {
         GuardianEntity g = new GuardianEntity();
         g.run();
 
-        AuthorEntity a = new AuthorEntity();
-        a.run();
+        AuthorEntity at = new AuthorEntity();
+        at.run();
 
         InsuranceCompanyEntity ic = new InsuranceCompanyEntity();
         ic.run();
@@ -20,6 +20,9 @@ public class HealthInformationSystem {
         
         LabTestReportEntity ltr = new LabTestReportEntity();
         ltr.run();
+        
+        AllergyEntity al = new AllergyEntity();
+        al.run();
     }
     
 }

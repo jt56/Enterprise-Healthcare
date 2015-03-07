@@ -121,4 +121,5 @@ public class LabTestReportEntity extends AbstractEntity {
     public static void setReferenceRangeLow(String referencerangelow) {
         LabTestReportEntity.referencerangelow = referencerangelow;
     }
+    
 }
