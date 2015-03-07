@@ -27,7 +27,7 @@ public class FamilyHistoryEntity extends AbstractEntity {
     public FamilyHistoryEntity() {
         this.tableName = "Family_History";
         this.tableKeys = new String[]{"relativeid", "patientid", "patientrelation", "age", "diagnosis"};
-        this.tableValues = new String[]{"rel", "pat", "prel", "ag", "diag"};
+        this.tableValues = new String[]{"rel", "pat2", "prel", "ag", "diag"};
 
         this.createInputString();
 

@@ -14,6 +14,12 @@ public class HealthInformationSystem {
 
         InsuranceCompanyEntity ic = new InsuranceCompanyEntity();
         ic.run();
+        
+        FamilyHistoryEntity fh = new FamilyHistoryEntity();
+        fh.run();
+        
+        LabTestReportEntity ltr = new LabTestReportEntity();
+        ltr.run();
     }
     
 }
