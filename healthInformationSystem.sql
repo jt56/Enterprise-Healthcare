@@ -98,7 +98,7 @@ CREATE TABLE Plan(
 ALTER TABLE Plan
 ADD FOREIGN KEY (planpatientid) REFERENCES Patient (patientid);
 
-#Relations
+# Relations
 CREATE TABLE has_Insurance_Company(
 	patientid VARCHAR(100),
   payerid VARCHAR(100),

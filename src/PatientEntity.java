@@ -36,30 +36,43 @@ public class PatientEntity extends AbstractEntity {
     public PatientEntity() {
         this.tableName = "PATIENT";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
-        this.tableValues = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
+//        this.tableValues = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
 
         this.createInputString();
         
     }
+    
+    public PatientEntity( String x[] ) {
+        this.tableName = "PATIENT";
+        this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
+
+        this.tableValues = new String[tableKeys.length];
+        for(int i = 0; i < tableKeys.length; i++ ) {
+            tableValues[i] = x[i];
+        }
+        
+        this.createInputString();
+    }
+
     
     /*
     ######################
     #   Getters/Setters  #
     ######################
     */
-    
+
     public String getPatientId() {
         return patientid;
     }
 
-    public void setPatientId(String patientid) {
-        this.patientid = patientid;
+    public void setPatientId(String providerid) {
+        this.patientid = providerid;
     }
 
     public String getProviderId() {
         return providerid;
     }
-
+    
     public void setProviderId(String providerid) {
         this.providerid = providerid;
     }

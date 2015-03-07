@@ -33,6 +33,18 @@ public class GuardianEntity extends AbstractEntity {
         this.createInputString();
 
     }
+
+    public GuardianEntity( String x[] ) {
+        this.tableName = "GUARDIAN";
+        this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "phone", "address", "city", "state", "zip"};
+
+        this.tableValues = new String[tableKeys.length];
+        for(int i = 0; i < tableKeys.length; i++ ) {
+            tableValues[i] = x[i];
+        }
+
+        this.createInputString();
+    }
     
     /*
     ######################

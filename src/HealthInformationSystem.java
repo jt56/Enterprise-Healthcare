@@ -2,7 +2,8 @@
 public class HealthInformationSystem {
 
     public static void main(String[] args) {
-        PatientEntity p = new PatientEntity();
+        String hme_vals[] = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
+        PatientEntity p = new PatientEntity(hme_vals);
         p.run();
 
         GuardianEntity g = new GuardianEntity();
@@ -14,5 +15,6 @@ public class HealthInformationSystem {
         InsuranceCompanyEntity ic = new InsuranceCompanyEntity();
         ic.run();
     }
+    
 }
 

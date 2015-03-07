@@ -28,6 +28,18 @@ public class InsuranceCompanyEntity extends AbstractEntity {
 
     }
 
+    public InsuranceCompanyEntity( String x[] ) {
+        this.tableName = "INSURANCE_COMPANY";
+        this.tableKeys = new String[]{"payerid", "name", "policytype"};
+
+        this.tableValues = new String[tableKeys.length];
+        for(int i = 0; i < tableKeys.length; i++ ) {
+            tableValues[i] = x[i];
+        }
+
+        this.createInputString();
+    }
+
     /*
     ######################
     #   Getters/Setters  #

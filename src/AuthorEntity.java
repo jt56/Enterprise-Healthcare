@@ -28,6 +28,19 @@ public class AuthorEntity extends AbstractEntity {
 
     }
 
+
+    public AuthorEntity( String x[] ) {
+        this.tableName = "Author";
+        this.tableKeys = new String[]{"authorid", "authortitle", "authorfirstname", "authorlastname"};
+
+        this.tableValues = new String[tableKeys.length];
+        for(int i = 0; i < tableKeys.length; i++ ) {
+            tableValues[i] = x[i];
+        }
+
+        this.createInputString();
+    }
+    
     /*
     ######################
     #   Getters/Setters  #
