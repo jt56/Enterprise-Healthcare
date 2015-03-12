@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AllergyEntity extends AbstractEntity {
 
@@ -20,9 +24,9 @@ public class AllergyEntity extends AbstractEntity {
     public AllergyEntity() {
         this.tableName = "Allergies";
         this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
-        this.tableValues = new String[]{"'id'", "'sub'", "'pat2'", "'rct'", "'stat'"};
+//        this.tableValues = new String[]{"'id'", "'sub'", "'pat2'", "'rct'", "'stat'"};
 
-        this.createInputString();
+//        this.createInputString();
 
     }
 
@@ -44,45 +48,117 @@ public class AllergyEntity extends AbstractEntity {
         this.createInputString();
     }
 
+    public void retrieveAllergy(String pid){
+        setProperties();
+
+        // Connect to MySQL
+        Connection conn = null;
+        try {
+            conn = this.getConnection();
+            System.out.println("Connected to database");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not connect to the database");
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+
+            this.query = "SELECT * FROM " + this.tableName;
+            this.query += " WHERE patientid = " + "'" + pid + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(this.query);
+
+
+            while (rs.next()) {
+                this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
+
+                queryResults.put("id", rs.getString("id"));
+                queryResults.put("substance", rs.getString("substance"));
+                queryResults.put("patientid", rs.getString("patientid"));
+                queryResults.put("reaction", rs.getString("reaction"));
+                queryResults.put("status", rs.getString("status"));
+            }
+
+            setAll();
+            printAllergyData(pid);
+
+            queryResults.clear();
+
+            System.out.println("Finished executing query");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not get data");
+            e.printStackTrace();
+            return;
+        }
+    }
+
+    public void printAllergyData(String userId ){
+//        this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
+//        retrieveAllergy(userId);
+
+        System.out.print("id: ");
+        System.out.println(getId());
+
+        System.out.print("substance: ");
+        System.out.println(getSubstance());
+
+        System.out.print("patientid: ");
+        System.out.println(getPatientId());
+
+        System.out.print("reatction: ");
+        System.out.println(getReaction());
+
+        System.out.print("status: ");
+        System.out.println(getStatus() + "\n");
+    }
     /*
     ######################
     #   Getters/Setters  #
     ######################
     */
 
-    public static String getId() { return id; }
+    public void setAll(){
+        setId(queryResults.get("id"));
+        setSubstance(queryResults.get("substance"));
+        setPatientId(queryResults.get("patientid"));
+        setReaction(queryResults.get("reaction"));
+        setStatus(queryResults.get("status"));
+    }
 
-    public static void setId(String id) { AllergyEntity.id = id; }
+    public String getId() { return id; }
 
-    public static String getSubstance() {
+    public void setId(String id) { AllergyEntity.id = id; }
+
+    public String getSubstance() {
         return substance;
     }
 
-    public static void setSubstance(String substance) {
+    public void setSubstance(String substance) {
         AllergyEntity.substance = substance;
     }
 
-    public static String getPatientId() {
+    public String getPatientId() {
         return patientid;
     }
 
-    public static void setPatientId(String patientid) {
+    public void setPatientId(String patientid) {
         AllergyEntity.patientid = patientid;
     }
 
-    public static String getReaction() {
+    public String getReaction() {
         return reaction;
     }
 
-    public static void setReaction(String reaction) {
+    public void setReaction(String reaction) {
         AllergyEntity.reaction = reaction;
     }
 
-    public static String getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public static void setStatus(String status) {
+    public void setStatus(String status) {
         AllergyEntity.status = status;
     }
 }
