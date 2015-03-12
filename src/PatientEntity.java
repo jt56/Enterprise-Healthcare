@@ -48,7 +48,7 @@ public class PatientEntity extends AbstractEntity {
     #   Specific Methods  #
     #######################
     */
-    
+
     public PatientEntity() {
         this.tableName = "Patient";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "lastaccessed", "xmlHealthCreation"};
@@ -74,7 +74,7 @@ public class PatientEntity extends AbstractEntity {
         
         this.createInputString();
     }
-
+    
     public void retrievePatient( String pid ) {
         
         setProperties();
@@ -171,8 +171,7 @@ public class PatientEntity extends AbstractEntity {
 
         setXmlHealthCreation(queryResults.get("xmlHealthCreation"));                                    
     }
-    
-    
+
     public String getPatientId() {
         return patientid;
     }
