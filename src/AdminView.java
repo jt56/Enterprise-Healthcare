@@ -37,7 +37,7 @@ public class AdminView extends AbstractEntity {
         printPlanData(userId); //takes planid
 //        printAllergyData(userId); //take patientid
         
-        a.retrieveAllergy(userId);
+        a.retrieveAllergy(userId, true);
         p.retrievePlan(userId);
 
         printUserData(userId);

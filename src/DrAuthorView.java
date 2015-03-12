@@ -2,8 +2,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class DrAuthorView extends AbstractEntity {
 
@@ -29,20 +31,79 @@ public class DrAuthorView extends AbstractEntity {
         p = new PlanEntity();
         a = new AllergyEntity();
 
-        printPlanData(userId); //takes planid
+
+
+//        printPlanData(userId); //takes planid
+        p.retrievePlan(userId);
 //        printAllergyData(userId); //take patientid
-        a.retrieveAllergy(userId);
+        a.retrieveAllergy(userId, true);
+
+        menu(userId);
 
         printUserData(userId);
     }
 
-    public void menu(){
+    public void menu(String userId){
+        Scanner reader = new Scanner(System.in);
+        String input;
         System.out.println("Welcome Doctor/Author");
-        System.out.println("Enter a patient ID: ");
+
+        boolean isEdit = true;
+        boolean changePlan = false;
+        boolean changeAllergies = false;
+
+        System.out.println("Would you like to edit a value:");
+
+        while (isEdit) {
+            System.out.println(" Which table, Plan or Allergies: ");
+            String table;
+            table = reader.next();
+            System.out.println(table);
+            if (table.equals("Plan")) {
+                System.out.println(" What value would you like to update: ");
+                String updateColumn;
+                updateColumn = reader.next();
+                if (Arrays.asList(p.tableKeys).contains(updateColumn.toString())) {
+                    System.out.println(" What should the value be: ");
+                    String updateVal;
+                    updateVal = reader.next();
+                    createUpdateQueryPlan(table, updateColumn, updateVal.toString(), userId);
+                    changePlan = true;
+                } else
+                    System.out.println("Column not in table");
+            } else if (table.equals("Allergies")) {
+                System.out.println(" What value would you like to update: ");
+                String updateColumn;
+                updateColumn = reader.next();
+                if (Arrays.asList(a.tableKeys).contains(updateColumn.toString())) {
+                    System.out.println(" What should the value be: ");
+                    String updateVal;
+                    updateVal = reader.next();
+                    createUpdateQueryAllergies(table, updateColumn, updateVal.toString(), userId);
+                    changeAllergies = true;
+                } else
+                    System.out.println("Column not in table");
+            } else
+                System.out.println("Incorrect input");
+
+            System.out.println("Would you like to edit another value:");
+            input = reader.next();
+            input.toString();
+            if ( input.equals("y") || input.equals("yes") || input.equals("Y") || input.equals("Yes") ) {
+                isEdit = true;
+            } else
+                isEdit = false;
 
 
+        }
 
+        if ( changePlan ) {
+            printPlan(userId);
+        }
 
+        if ( changeAllergies ) {
+            printAllergy(userId);
+        }
     }
 
     public void retrieveLogin() {
@@ -81,7 +142,7 @@ public class DrAuthorView extends AbstractEntity {
         }
     }
 
-    public void printPlanData(String userId){
+    public void printPlan(String userId){
 //        String[]{"planid", "planpatientid", "activity"}
 
         p.retrievePlan(userId);
@@ -96,25 +157,25 @@ public class DrAuthorView extends AbstractEntity {
         System.out.println(p.getActivity() + "\n");
     }
 
-//    public void printAllergyData(String userId ){
-////        this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
-//        a.retrieveAllergy(userId);
-//
-//        System.out.print("id: ");
-//        System.out.println(a.getId());
-//
-//        System.out.print("substance: ");
-//        System.out.println(a.getSubstance());
-//
-//        System.out.print("patientid: ");
-//        System.out.println(a.getPatientId());
-//
-//        System.out.print("reatction: ");
-//        System.out.println(a.getReaction());
-//
-//        System.out.print("status: ");
-//        System.out.println(a.getStatus() + "\n");
-//    }
+    public void printAllergy(String userId ){
+//        this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
+        a.retrieveAllergy(userId, false);
+
+        System.out.print("id: ");
+        System.out.println(a.getId());
+
+        System.out.print("substance: ");
+        System.out.println(a.getSubstance());
+
+        System.out.print("patientid: ");
+        System.out.println(a.getPatientId());
+
+        System.out.print("reatction: ");
+        System.out.println(a.getReaction());
+
+        System.out.print("status: ");
+        System.out.println(a.getStatus() + "\n");
+    }
 
     public void printUserData( String userId ) {
         // patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, lastaccessed, xmlHealthCreation
@@ -157,5 +218,21 @@ public class DrAuthorView extends AbstractEntity {
         System.out.println();
         System.out.println();
 
+    }
+    public void createUpdateQueryPlan( String table, String column, String newVal, String userId ) {
+//        this.query = "UPDATE " + this.tableName + " ";
+        this.query = "UPDATE " + table + " ";
+        this.query += "SET " + column + " = '" + newVal + "' ";
+        this.query += "WHERE planpatientid = '" + userId + "';";
+
+        run();
+    }
+    public void createUpdateQueryAllergies( String table, String column, String newVal, String userId ) {
+//        this.query = "UPDATE " + this.tableName + " ";
+        this.query = "UPDATE " + table + " ";
+        this.query += "SET " + column + " = '" + newVal + "' ";
+        this.query += "WHERE patientid = '" + userId + "';";
+
+        run();
     }
 }

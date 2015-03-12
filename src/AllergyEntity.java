@@ -48,7 +48,7 @@ public class AllergyEntity extends AbstractEntity {
         this.createInputString();
     }
 
-    public void retrieveAllergy(String pid){
+    public void retrieveAllergy(String pid, boolean print){
         setProperties();
 
         // Connect to MySQL
@@ -81,7 +81,9 @@ public class AllergyEntity extends AbstractEntity {
             }
 
             setAll();
-            printAllergyData(pid);
+            if(print){
+                printAllergyData(pid);
+            }
 
             queryResults.clear();
 

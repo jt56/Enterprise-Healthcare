@@ -78,6 +78,7 @@ public class PlanEntity extends AbstractEntity {
             }
 
             setAll();
+            printPlanData(pid);
 
             queryResults.clear();
 
@@ -87,6 +88,21 @@ public class PlanEntity extends AbstractEntity {
             e.printStackTrace();
             return;
         }
+    }
+
+    public void printPlanData(String userId){
+//        String[]{"planid", "planpatientid", "activity"}
+
+//        retrievePlan(userId);
+
+        System.out.print("planid: ");
+        System.out.println(getPlanId());
+
+        System.out.print("planpatientid: ");
+        System.out.println(getPlanPatientId());
+
+        System.out.print("activity: ");
+        System.out.println(getActivity() + "\n");
     }
     
     /*
