@@ -46,7 +46,7 @@ public class MessageExchangeSystem {
     protected String tableKeys[];
     protected String tableValues[];
 
-    private Properties loadEnvProperties (String fileName) throws Exception {
+    private Properties loadEnvProperties(String fileName) throws Exception {
         InputStream is = new FileInputStream(fileName);
         Properties props = new Properties();
         props.load(is);
@@ -57,7 +57,7 @@ public class MessageExchangeSystem {
     public void setProperties() {
         File propertyFile = new File(incomingProperty);
 
-        if(propertyFile.exists()) {
+        if (propertyFile.exists()) {
             Properties props = new Properties();
 
             try {
@@ -111,19 +111,30 @@ public class MessageExchangeSystem {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
 
-
-            while (rs.next()){
+            while (rs.next()) {
                 queryResults.clear();
 
                 queryResults.put("MsgId", rs.getString("MsgId"));
 
                 queryResults.put("Last_Accessed", rs.getString("Last_Accessed"));
+                //Patient
                 queryResults.put("patientId", rs.getString("patientId"));
+                //providerid it is lower
+                //patientrole
                 queryResults.put("GivenName", rs.getString("GivenName"));
                 queryResults.put("FamilyName", rs.getString("FamilyName"));
+                //suffix
+                //gender
                 queryResults.put("BirthTime", rs.getString("BirthTime"));
                 queryResults.put("providerId", rs.getString("providerId"));
+                //xmlhealthcreation is this Last_Accessed?
+
+
+                //Guardians
+                //data given does not match at all
                 queryResults.put("GuardianNo", rs.getString("GuardianNo"));
+                //givenname
+                //familyname
                 queryResults.put("Relationship", rs.getString("Relationship"));
                 queryResults.put("FirstName", rs.getString("FirstName"));
                 queryResults.put("LastName", rs.getString("LastName"));
@@ -133,26 +144,33 @@ public class MessageExchangeSystem {
                 queryResults.put("state", rs.getString("state"));
                 queryResults.put("zip", rs.getString("zip"));
 
+                //Authors
                 queryResults.put("AuthorId", rs.getString("AuthorId"));
                 queryResults.put("AuthorTitle", rs.getString("AuthorTitle"));
                 queryResults.put("AuthorFirstName", rs.getString("AuthorFirstName"));
                 queryResults.put("AuthorLastName", rs.getString("AuthorLastName"));
                 queryResults.put("ParticipatingRole", rs.getString("ParticipatingRole"));
 
+                //Insurance Company
                 queryResults.put("PayerId", rs.getString("PayerId"));
                 queryResults.put("Name", rs.getString("Name"));
-                queryResults.put("PolicyHolder", rs.getString("PolicyHolder"));
+                queryResults.put("PolicyHolder", rs.getString("PolicyHolder")); //not in entity
                 queryResults.put("PolicyType", rs.getString("PolicyType"));
                 queryResults.put("Purpose", rs.getString("Purpose"));
+
+                //Family History
                 queryResults.put("RelativeId", rs.getString("RelativeId"));
                 queryResults.put("Relation", rs.getString("Relation"));
                 queryResults.put("age", rs.getString("age"));
                 queryResults.put("Diagnosis", rs.getString("Diagnosis"));
 
-                queryResults.put("Id", rs.getString("Id"));
+                //Allergies
+                queryResults.put("Id", rs.getString("Id")); //not in entity PK?
                 queryResults.put("Substance", rs.getString("Substance"));
                 queryResults.put("Reaction", rs.getString("Reaction"));
                 queryResults.put("Status", rs.getString("Status"));
+
+                //Lab test reports
                 queryResults.put("LabTestResultId", rs.getString("LabTestResultId"));
                 queryResults.put("PatientVisitId", rs.getString("PatientVisitId"));
                 queryResults.put("LabTestPerformedDate", rs.getString("LabTestPerformedDate"));
@@ -160,46 +178,151 @@ public class MessageExchangeSystem {
                 queryResults.put("TestResultValue", rs.getString("TestResultValue"));
                 queryResults.put("ReferenceRangeHigh", rs.getString("ReferenceRangeHigh"));
                 queryResults.put("ReferenceRangeLow", rs.getString("ReferenceRangeLow"));
-                queryResults.put("PlanId", rs.getString("PlanId"));
-                queryResults.put("Activity", rs.getString("Activity"));
-                queryResults.put("ScheduledDAte", rs.getString("ScheduledDAte"));
 
-                //Test output
-                System.out.println(queryResults.get("Last_Accessed"));
+                //Plan
+                queryResults.put("PlanId", rs.getString("PlanId"));
+                //planpatientid
+                queryResults.put("Activity", rs.getString("Activity"));
+                queryResults.put("ScheduledDate", rs.getString("ScheduledDate"));
+
+
+                //call the setmethods that input the data to the DB
+                setPatientEntity();
+                setGuardianEntity();
+                setAuthorEntity();
+                setInsuranceEntity();
+                setFamilyHistoryEntity();
+                setAllergyEntity();
+                setLabTestReportEntity();
+                setPlanEntity();
+
             }
 
             System.out.println("Finished executing query");
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println("ERROR: Could not get data");
             e.printStackTrace();
             return;
         }
     }
 
+    private void setAllergyEntity() {
+        String[] tableValues = new String[]{
+                queryResults.get("Substance"),
+                queryResults.get("patientId"),
+                queryResults.get("Reaction"),
+                queryResults.get("Status")};
 
-    private void setAllergyEntity (){
+        AllergyEntity e = new AllergyEntity(tableValues);
+        e.run();
 
-    }
-    private void setAuthorEntity (){
-
-    }
-    private void setFamilyHistoryEntity (){
-
-    }
-    private void setGuardianEntity (){
-
-    }
-    private void setInsuranceEntity (){
-
-    }
-    private void setLabTestReportEntity(){
-
-    }
-    private void setPatientEntity(){
-
-    }
-    private void setPlanEntity(){
-
+        queryResults.get("Id"); //not in entity PK?
+        //TODO what should Id be set to
     }
 
+    private void setAuthorEntity() {
+        String[] tableKeys = new String[]{
+                queryResults.get("AuthorId"),
+                queryResults.get("AuthorTitle"),
+                queryResults.get("AuthorFirstName"),
+                queryResults.get("AuthorLastName")};
+
+        AuthorEntity e = new AuthorEntity(tableKeys);
+        e.run();
+
+        //TODO where does participatingrole go
+        queryResults.get("ParticipatingRole");
+    }
+
+    private void setFamilyHistoryEntity() {
+        String[] tableKeys = new String[]{
+                queryResults.get("RelativeId"),
+                queryResults.get("patientId"),
+                queryResults.get("Relation"),
+                queryResults.get("age"),
+                queryResults.get("Diagnosis")};
+
+        FamilyHistoryEntity e = new FamilyHistoryEntity(tableKeys);
+        e.run();
+    }
+
+    private void setGuardianEntity() {
+        String[] tableKeys = new String[]{
+                queryResults.get("GuardianNo"),
+                queryResults.get("patientId"),
+                queryResults.get("FirstName"),
+                queryResults.get("LastName"),
+                queryResults.get("phone"),
+                queryResults.get("address"),
+                queryResults.get("city"),
+                queryResults.get("state"),
+                queryResults.get("zip")};
+
+        GuardianEntity e = new GuardianEntity(tableKeys);
+        e.run();
+
+        //TODO find out where this belongs
+        queryResults.get("Relationship");
+    }
+
+    private void setInsuranceEntity() {
+
+        String[] tableKeys = new String[]{
+                queryResults.get("PayerId"),
+                queryResults.get("Name"),
+                queryResults.get("PolicyType")};
+
+        InsuranceCompanyEntity e = new InsuranceCompanyEntity(tableKeys);
+        e.run();
+
+        //TODO policy holder and purpose not inputed
+        queryResults.get("PolicyHolder"); //not in entity
+        queryResults.get("Purpose");
+    }
+
+    private void setLabTestReportEntity() {
+        String[] tableValues = new String[]{
+                queryResults.get("LabTestResultId"),
+                queryResults.get("PatientVisitId"),
+                queryResults.get("LabTestPerformedDate"),
+                queryResults.get("LabTestType"),
+                queryResults.get("TestResultValue"),
+                queryResults.get("ReferenceRangeHigh"),
+                queryResults.get("ReferenceRangeLow")};
+
+        LabTestReportEntity e = new LabTestReportEntity(tableValues);
+        e.run();
+    }
+
+    private void setPatientEntity() {
+        String[] tableValues = new String[]{
+                queryResults.get("patientId"),
+                queryResults.get("providerId"),
+                null, //patientrole
+                queryResults.get("GivenName"),
+                queryResults.get("FamilyName"),
+                null, //suffix
+                null, //gender
+                queryResults.get("BirthTime"),
+                "xmlHealthCreation"};
+
+        PatientEntity p = new PatientEntity(tableValues);
+        p.run();
+        //TODO last access needs to be added to table
+        queryResults.get("Last_Accessed");
+    }
+
+    private void setPlanEntity() {
+        String[] tableValues = new String[]{
+                queryResults.get("PlanId"),
+                "planpatientid",
+                queryResults.get("Activity")};
+
+        //planpatientid
+        //TODO add scheduled date to plan
+        queryResults.get("ScheduledDate");
+
+        PlanEntity e = new PlanEntity(tableValues);
+        e.run();
+    }
 }
