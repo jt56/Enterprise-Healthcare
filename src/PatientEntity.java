@@ -41,7 +41,7 @@ public class PatientEntity extends AbstractEntity {
     
     private static String xmlHealthCreation;
 
-    private Map<String, String> queryResults = new HashMap<String, String>();
+//    private Map<String, String> queryResults = new HashMap<String, String>();
     
     /*
     #######################
@@ -52,10 +52,10 @@ public class PatientEntity extends AbstractEntity {
     public PatientEntity() {
         this.tableName = "Patient";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "lastaccessed", "xmlHealthCreation"};
-//        this.tableValues = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
-
-        this.createInputString();
-        
+//        this.tableValues = new String[]{"pat2", "prov", "guard", "give", null, "suf", "gen", "birth", "last", "xml"};
+//
+//        this.createInputString();
+//
     }
     
     public PatientEntity( String x[] ) {
