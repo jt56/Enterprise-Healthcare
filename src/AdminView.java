@@ -17,7 +17,7 @@ public class AdminView extends AbstractEntity {
 
     private AllergyEntity a;
     
-    private AuthorEntity auth;
+//    private AuthorEntity auth;
 
     public AdminView( String userId ) {
         System.out.println();
@@ -45,6 +45,8 @@ public class AdminView extends AbstractEntity {
         a.printAllergyData(userId);
         
         printData(userId);
+        
+        
     }
 
     public void retrieveLogin() {
@@ -94,7 +96,7 @@ public class AdminView extends AbstractEntity {
         boolean changePlan = false;
 
         while (isEdit) {
-            System.out.println(" Which table: Patient, Plan, or Allergy ");
+            System.out.println(" Which table: Patient, Plan, or Allergies ");
             String table;
             table = reader.next();
             if (table.equals("Patient")) {
@@ -105,7 +107,7 @@ public class AdminView extends AbstractEntity {
                     System.out.println(" What should the value be: ");
                     String updateVal;
                     updateVal = reader.next();
-                    createUpdateQuery(table, updateColumn, updateVal.toString(), userId);
+                    createAllergyUpdateQuery(table, updateColumn, updateVal.toString(), userId);
                     changePatient = true;
                 } else
                     System.out.println("Column not in table");
@@ -121,7 +123,7 @@ public class AdminView extends AbstractEntity {
                     changePlan = true;
                 } else
                     System.out.println("Column not in table");
-            } else if (table.equals("Allergy")) {
+            } else if (table.equals("Allergies")) {
                 System.out.println(" What value would you like to update: ");
                 String updateColumn;
                 updateColumn = reader.next();
@@ -152,12 +154,41 @@ public class AdminView extends AbstractEntity {
         }
 
         if ( changeAllergy ) {
-            a.printAllergyData(userId);
+            AllergyEntity b = new AllergyEntity();
+            b.retrieveAllergy(userId, true);
         }
         
         if ( changePlan ) {
             printPlanData(userId);
         }
+
+        boolean isRun = false;
+        
+        System.out.println(" Run Query?");
+        String qry = reader.next();
+        qry.toString();
+        if ( qry.equals("y") || qry.equals("yes") || qry.equals("Y") || qry.equals("Yes") ) {
+            isRun = true;
+        } else
+            isRun = false;
+        
+        if(isRun) {
+            this.query = query1();
+            run();
+        }
+    }
+    
+//    public String query1() {
+//        String q = "SELECT A.substance, COUNT(A.patientid) " +
+//                "FROM Allergies A " +
+//                "GROUP BY A.substance;";
+//        
+//        return q;
+//    }
+
+    public String query1() {
+        String q = "SELECT A.patientid, COUNT(A.substance) AS num FROM Allergies A WHERE (num > 1) GROUP BY A.patientid;";
+        return q;
     }
     
     public void createUpdateQuery( String table, String column, String newVal, String userId ) {
@@ -178,10 +209,19 @@ public class AdminView extends AbstractEntity {
         run();
     }
 
+    public void createAllergyUpdateQuery( String table, String column, String newVal, String userId ) {
+//        this.query = "UPDATE " + this.tableName + " ";
+        this.query = "UPDATE " + table + " ";
+        this.query += "SET " + column + " = '" + newVal + "' ";
+        this.query += "WHERE patientid = '" + userId + "';";
+
+        run();
+    }
+    
     public void printUserData( String userId ) {
         // patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, lastaccessed, xmlHealthCreation
         pat.retrievePatient(userId);
-        System.out.println("\nWelcome " + userId + "\n Below is your information:");
+        System.out.println();
 
         System.out.println("PATIENT INFO");
 
