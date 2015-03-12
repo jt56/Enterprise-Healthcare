@@ -2,6 +2,9 @@
 public class HealthInformationSystem {
 
     public static void main(String[] args) {
+        RunSQL r = new RunSQL();
+        r.run("healthInformationSystem.sql");
+        
         String hme_vals[] = new String[]{"pat2", "prov", "patrole", "give", null, "suf", "gen", "birth", "xml"};
         PatientEntity pat = new PatientEntity(hme_vals);
         pat.run();
@@ -27,6 +30,17 @@ public class HealthInformationSystem {
         PlanEntity pln = new PlanEntity();
         pln.run();
         
+        VisitsLabRelation vlr = new VisitsLabRelation();
+        vlr.run();
+        
+        HasInsuranceCompanyRelation hicr = new HasInsuranceCompanyRelation();
+        hicr.run();
+        
+        HasAuthorRelation har = new HasAuthorRelation();
+        har.run();
+        
+        HasPlanRelation hpr = new HasPlanRelation();
+        hpr.run();
         
     }
     
