@@ -91,6 +91,8 @@ public class MessageExchangeSystem {
      * Connect to MySQL and do some stuff.
      */
     public void run() {
+        RunSQL r = new RunSQL();
+        r.run("healthInformationSystem.sql");
         getMessage("messages");
         getMessage("messages2");
     }
