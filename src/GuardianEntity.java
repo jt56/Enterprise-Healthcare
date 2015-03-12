@@ -15,6 +15,7 @@ public class GuardianEntity extends AbstractEntity {
     private static String patientid;
     private static String givenname;
     private static String familyname;
+    private static String relationship;
     private static String phone;
     private static String address;
     private static String city;
@@ -29,7 +30,7 @@ public class GuardianEntity extends AbstractEntity {
 
     public GuardianEntity() {
         this.tableName = "Guardian";
-        this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "phone", "address", "city", "state", "zip"};
+        this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "relationship", "phone", "address", "city", "state", "zip"};
         this.tableValues = new String[]{"'guard'", "'pat2'", "'giv'", "'fam'", "'pho'", "'addr'", "'city'", "'st'", "'zip'"};
 
         this.createInputString();
@@ -38,7 +39,7 @@ public class GuardianEntity extends AbstractEntity {
 
     public GuardianEntity( String x[] ) {
         this.tableName = "Guardian";
-        this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "phone", "address", "city", "state", "zip"};
+        this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "relationship", "phone", "address", "city", "state", "zip"};
 
         this.tableValues = new String[tableKeys.length];
         for(int i = 0; i < tableKeys.length; i++ ) {
@@ -90,6 +91,10 @@ public class GuardianEntity extends AbstractEntity {
     public static void setFamilyname(String familyname) {
         GuardianEntity.familyname = familyname;
     }
+
+    public static String getRelationship() {return relationship;}
+
+    public static void setRelationship(String relationship) {GuardianEntity.relationship = relationship;}
 
     public static String getPhone() {
         return phone;

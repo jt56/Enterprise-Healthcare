@@ -24,6 +24,8 @@ public class PatientEntity extends AbstractEntity {
     private static String gender;
     
     private static String birthtime;
+
+    private static String lastaccessed;
     
     private static String xmlHealthCreation;
     
@@ -35,7 +37,7 @@ public class PatientEntity extends AbstractEntity {
     
     public PatientEntity() {
         this.tableName = "Patient";
-        this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
+        this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "lastaccessed", "xmlHealthCreation"};
 //        this.tableValues = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
 
         this.createInputString();
@@ -44,7 +46,7 @@ public class PatientEntity extends AbstractEntity {
     
     public PatientEntity( String x[] ) {
         this.tableName = "Patient";
-        this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
+        this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "lastaccessed", "xmlHealthCreation"};
 
         this.tableValues = new String[tableKeys.length];
         for(int i = 0; i < tableKeys.length; i++ ) {
@@ -129,6 +131,10 @@ public class PatientEntity extends AbstractEntity {
     public void setBirthTime(String birthtime) {
         this.birthtime = birthtime;
     }
+
+    public static String getLastAccessed() { return lastaccessed; }
+
+    public static void setLastAccessed(String lastaccessed) { PatientEntity.lastaccessed = lastaccessed; }
 
     public String getXmlHealthCreation() {
         return xmlHealthCreation;

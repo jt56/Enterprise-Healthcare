@@ -123,18 +123,15 @@ public class MessageExchangeSystem {
                 //patientrole
                 queryResults.put("GivenName", rs.getString("GivenName"));
                 queryResults.put("FamilyName", rs.getString("FamilyName"));
-                //suffix
-                //gender
+                //suffix set to null
+                //gender set to null
                 queryResults.put("BirthTime", rs.getString("BirthTime"));
                 queryResults.put("providerId", rs.getString("providerId"));
                 //xmlhealthcreation is this Last_Accessed?
 
 
                 //Guardians
-                //data given does not match at all
                 queryResults.put("GuardianNo", rs.getString("GuardianNo"));
-                //givenname
-                //familyname
                 queryResults.put("Relationship", rs.getString("Relationship"));
                 queryResults.put("FirstName", rs.getString("FirstName"));
                 queryResults.put("LastName", rs.getString("LastName"));
@@ -208,6 +205,7 @@ public class MessageExchangeSystem {
 
     private void setAllergyEntity() {
         String[] tableValues = new String[]{
+                queryResults.get("Id"), //PK
                 queryResults.get("Substance"),
                 queryResults.get("patientId"),
                 queryResults.get("Reaction"),
@@ -216,8 +214,6 @@ public class MessageExchangeSystem {
         AllergyEntity e = new AllergyEntity(tableValues);
         e.run();
 
-        queryResults.get("Id"); //not in entity PK?
-        //TODO what should Id be set to
     }
 
     private void setAuthorEntity() {
@@ -229,9 +225,6 @@ public class MessageExchangeSystem {
 
         AuthorEntity e = new AuthorEntity(tableKeys);
         e.run();
-
-        //TODO where does participatingrole go
-        queryResults.get("ParticipatingRole");
     }
 
     private void setFamilyHistoryEntity() {
@@ -252,6 +245,7 @@ public class MessageExchangeSystem {
                 queryResults.get("patientId"),
                 queryResults.get("FirstName"),
                 queryResults.get("LastName"),
+                queryResults.get("Relationship"), //add to SQL file
                 queryResults.get("phone"),
                 queryResults.get("address"),
                 queryResults.get("city"),
@@ -261,8 +255,6 @@ public class MessageExchangeSystem {
         GuardianEntity e = new GuardianEntity(tableKeys);
         e.run();
 
-        //TODO find out where this belongs
-        queryResults.get("Relationship");
     }
 
     private void setInsuranceEntity() {
@@ -270,14 +262,12 @@ public class MessageExchangeSystem {
         String[] tableKeys = new String[]{
                 queryResults.get("PayerId"),
                 queryResults.get("Name"),
-                queryResults.get("PolicyType")};
+                queryResults.get("PolicyHolder"), //add
+                queryResults.get("PolicyType"),
+        };
 
         InsuranceCompanyEntity e = new InsuranceCompanyEntity(tableKeys);
         e.run();
-
-        //TODO policy holder and purpose not inputed
-        queryResults.get("PolicyHolder"); //not in entity
-        queryResults.get("Purpose");
     }
 
     private void setLabTestReportEntity() {
@@ -298,31 +288,46 @@ public class MessageExchangeSystem {
         String[] tableValues = new String[]{
                 queryResults.get("patientId"),
                 queryResults.get("providerId"),
-                null, //patientrole
+                queryResults.get("GuardianNo"), //patientrole
                 queryResults.get("GivenName"),
                 queryResults.get("FamilyName"),
                 null, //suffix
                 null, //gender
                 queryResults.get("BirthTime"),
+                queryResults.get("Last_Accessed"), // add to SQL
                 "xmlHealthCreation"};
 
         PatientEntity p = new PatientEntity(tableValues);
         p.run();
-        //TODO last access needs to be added to table
-        queryResults.get("Last_Accessed");
     }
 
     private void setPlanEntity() {
         String[] tableValues = new String[]{
                 queryResults.get("PlanId"),
-                "planpatientid",
+                queryResults.get("patientId"), //"planpatientid"
                 queryResults.get("Activity")};
-
-        //planpatientid
-        //TODO add scheduled date to plan
-        queryResults.get("ScheduledDate");
 
         PlanEntity e = new PlanEntity(tableValues);
         e.run();
+    }
+
+    private void setHasInsuranceCompany(){
+        queryResults.get("Purpose"); //add has_Insurance
+
+    }
+
+    private void setVisitsLab(){
+
+    }
+
+    private void setHasAuthor(){
+        queryResults.get("ParticipatingRole");
+
+
+    }
+
+    private void setHasPlan(){
+        queryResults.get("ScheduledDate"); // in has_plan plandate
+
     }
 }

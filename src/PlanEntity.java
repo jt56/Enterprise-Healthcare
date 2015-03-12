@@ -17,7 +17,7 @@ public class PlanEntity extends AbstractEntity {
 
     public PlanEntity() {
         this.tableName = "Plan";
-        this.tableKeys = new String[]{"planid", "planpatientid", "activity"};
+        this.tableKeys = new String[]{"planid", "activity"};
         this.tableValues = new String[]{"'pid'", "'pat2'", "'act'"};
 
         this.createInputString();
@@ -27,7 +27,7 @@ public class PlanEntity extends AbstractEntity {
 
     public PlanEntity( String x[] ) {
         this.tableName = "Plan";
-        this.tableKeys = new String[]{"planid", "planpatientid", "activity"};
+        this.tableKeys = new String[]{"planid", "activity"};
 
         this.tableValues = new String[tableKeys.length];
         for(int i = 0; i < tableKeys.length; i++ ) {

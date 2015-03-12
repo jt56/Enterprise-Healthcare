@@ -9,14 +9,15 @@ USE health_information_system;
 
 CREATE TABLE Patient(
 	patientid VARCHAR(100),
-	providerid VARCHAR(100) NOT NULL,
-	patientrole VARCHAR(100) NOT NULL,
-	givenname VARCHAR(100)  NOT NULL,
+	providerid VARCHAR(100),
+	patientrole VARCHAR(100),
+	givenname VARCHAR(100),
 	familyname VARCHAR(100),
 	suffix VARCHAR(100),
-	gender VARCHAR(100) NOT NULL,
-  birthtime VARCHAR(100) NOT NULL,
-	xmlhealthcreation VARCHAR(100) NOT NULL,
+	gender VARCHAR(100),
+  birthtime VARCHAR(100),
+  lastaccessed VARCHAR(100),
+	xmlhealthcreation VARCHAR(100),
 	PRIMARY KEY(patientid)
 #	FOREIGN KEY (patientrole) REFERENCES Guardians (guardianno)
 );
@@ -25,8 +26,9 @@ CREATE TABLE Guardian(
 	guardianno VARCHAR(100),
   patientid VARCHAR(100),
 	givenname VARCHAR(100),
+  relationship VARCHAR(100),
 	familyname VARCHAR(100),
-	phone VARCHAR(100) NOT NULL,
+	phone VARCHAR(100),
 	address VARCHAR(100),
 	city VARCHAR(100),
 	state VARCHAR(100),
@@ -39,7 +41,7 @@ CREATE TABLE Guardian(
 CREATE TABLE Author(
 	authorid VARCHAR(100),
 	authortitle VARCHAR(100),
-	authorfirstname VARCHAR(100) NOT NULL,
+	authorfirstname VARCHAR(100),
 	authorlastname VARCHAR(100),
 	PRIMARY KEY(authorid)
 );
@@ -47,28 +49,30 @@ CREATE TABLE Author(
 
 CREATE TABLE Insurance_Company(
 	payerid VARCHAR(100),
-	name VARCHAR(100) NOT NULL,
-	policytype VARCHAR(100) NOT NULL,
+	name VARCHAR(100),
+  policyholder VARCHAR(100),
+	policytype VARCHAR(100),
 	PRIMARY KEY(payerid)
 );
 
 CREATE TABLE Family_History(
 	relativeid VARCHAR(100),
   patientid VARCHAR(100),
-	patientrelation VARCHAR(100) NOT NULL,
+	patientrelation VARCHAR(100),
 	age VARCHAR(100),
-	diagnosis VARCHAR(100) NOT NULL,
+	diagnosis VARCHAR(100),
 	PRIMARY KEY(relativeid, patientid),
     FOREIGN KEY (patientid) REFERENCES Patient (patientid)
       ON DELETE CASCADE
 );
 
 CREATE TABLE Allergies(
+  id VARCHAR(100),
 	substance VARCHAR(100),
   patientid VARCHAR(100),
-	reaction VARCHAR(100) NOT NULL,
-	status VARCHAR(100) NOT NULL,
-	PRIMARY KEY(substance, patientid),
+	reaction VARCHAR(100) ,
+	status VARCHAR(100),
+	PRIMARY KEY(id, patientid),
   FOREIGN KEY (patientid) REFERENCES Patient (patientid)
     ON DELETE CASCADE
 );
@@ -76,9 +80,9 @@ CREATE TABLE Allergies(
 CREATE TABLE Lab_Test_Reports(
 	labtestresultid VARCHAR(100),
 	patientvisitid VARCHAR(100),
-	labtestperformeddate VARCHAR(100) NOT NULL,
-	labtesttype VARCHAR(100) NOT NULL,
-	testresultvalue VARCHAR(100) NOT NULL,
+	labtestperformeddate VARCHAR(100),
+	labtesttype VARCHAR(100),
+	testresultvalue VARCHAR(100),
 	referencerangehigh VARCHAR(100),
 	referencerangelow VARCHAR(100),
 	PRIMARY KEY(labtestresultid, patientvisitid)
@@ -86,8 +90,8 @@ CREATE TABLE Lab_Test_Reports(
 
 CREATE TABLE Plan(
 	planid VARCHAR(100),
-	planpatientid VARCHAR(100) NOT NULL,
-	activity VARCHAR(100) NOT NULL,
+	planpatientid VARCHAR(100),
+	activity VARCHAR(100),
 	PRIMARY KEY(planid)
 #	FOREIGN KEY (planpatientid) REFERENCES Patient (patientid)
 );
@@ -119,7 +123,7 @@ CREATE TABLE visits_Lab(
 CREATE TABLE has_Author(
   patientid VARCHAR(100),
   authorid VARCHAR(100),
-  participatingrole VARCHAR(100) NOT NULL,
+  participatingrole VARCHAR(100),
 	PRIMARY KEY (patientid, authorid),
   FOREIGN KEY (patientid) REFERENCES Patient (patientid),
   FOREIGN KEY (authorid) REFERENCES Author (authorid)
@@ -128,7 +132,7 @@ CREATE TABLE has_Author(
 CREATE TABLE has_Plan(
 	patientid VARCHAR(100),
   planid VARCHAR(100),
-  plandate VARCHAR(100) NOT NULL,
+  plandate VARCHAR(100),
 	PRIMARY KEY (patientid, planid),
 	FOREIGN KEY (patientid) REFERENCES Patient (patientid),
   FOREIGN KEY (planid) REFERENCES Plan (planid)

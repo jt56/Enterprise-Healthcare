@@ -149,6 +149,13 @@ public abstract class AbstractEntity {
             return;
         }
 
+        try{
+            conn.close();
+
+        } catch (SQLException e){
+            System.out.println("Could not close connection");
+        }
+
     }
     
 }

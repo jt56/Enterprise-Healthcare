@@ -11,6 +11,7 @@ public class InsuranceCompanyEntity extends AbstractEntity {
     
     private static String payerid;
     private static String name;
+    private static String policyholder;
     private static String policytype;
 
     /*
@@ -21,7 +22,7 @@ public class InsuranceCompanyEntity extends AbstractEntity {
 
     public InsuranceCompanyEntity() {
         this.tableName = "Insurance_Company";
-        this.tableKeys = new String[]{"payerid", "name", "policytype"};
+        this.tableKeys = new String[]{"payerid", "name", "policyholder", "policytype"};
         this.tableValues = new String[]{"'pay'", "'nam'", "'plcy'"};
 
         this.createInputString();
@@ -30,7 +31,7 @@ public class InsuranceCompanyEntity extends AbstractEntity {
 
     public InsuranceCompanyEntity( String x[] ) {
         this.tableName = "Insurance_Company";
-        this.tableKeys = new String[]{"payerid", "name", "policytype"};
+        this.tableKeys = new String[]{"payerid", "name", "policyholder", "policytype"};
 
         this.tableValues = new String[tableKeys.length];
         for(int i = 0; i < tableKeys.length; i++ ) {
@@ -66,6 +67,10 @@ public class InsuranceCompanyEntity extends AbstractEntity {
     public static void setName(String name) {
         InsuranceCompanyEntity.name = name;
     }
+
+    public static String getPolicyholder() { return policyholder; }
+
+    public static void setPolicyholder(String policyholder) { InsuranceCompanyEntity.policyholder = policyholder;}
 
     public static String getPolicyType() {
         return policytype;

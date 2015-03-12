@@ -5,6 +5,7 @@ public class AllergyEntity extends AbstractEntity {
 
     // FK: patientid -> Patient.patientid
 
+    private static String id;
     private static String substance;
     private static String patientid;
     private static String reaction;
@@ -18,7 +19,7 @@ public class AllergyEntity extends AbstractEntity {
 
     public AllergyEntity() {
         this.tableName = "Allergies";
-        this.tableKeys = new String[]{"substance", "patientid", "reaction", "status"};
+        this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
         this.tableValues = new String[]{"'sub'", "'pat2'", "'rct'", "'stat'"};
 
         this.createInputString();
@@ -28,7 +29,7 @@ public class AllergyEntity extends AbstractEntity {
 
     public AllergyEntity( String x[] ) {
         this.tableName = "Allergies";
-        this.tableKeys = new String[]{"substance", "patientid", "reaction", "status"};
+        this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
 
         this.tableValues = new String[tableKeys.length];
         for(int i = 0; i < tableKeys.length; i++ ) {
@@ -48,6 +49,10 @@ public class AllergyEntity extends AbstractEntity {
     #   Getters/Setters  #
     ######################
     */
+
+    public static String getId() { return id; }
+
+    public static void setId(String id) { AllergyEntity.id = id; }
 
     public static String getSubstance() {
         return substance;
