@@ -115,7 +115,7 @@ public abstract class AbstractEntity {
         } finally {
 
             // This will run whether we throw an exception or not
-            if (stmt != null) { stmt.close(); }
+            if (stmt != null) { stmt.close(); conn.close();}
         }
     }
 
@@ -145,7 +145,7 @@ public abstract class AbstractEntity {
             System.out.println("Executed query");
         } catch(SQLException e) {
             System.out.println("ERROR: Could not input data");
-            e.printStackTrace();
+//            e.printStackTrace();
             return;
         }
 
