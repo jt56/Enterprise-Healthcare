@@ -91,8 +91,8 @@ public class MessageExchangeSystem {
      * Connect to MySQL and do some stuff.
      */
     public void run() {
-        getMessage("messages");
-//        getMessage("messages2");
+//        getMessage("messages");
+        getMessage("messages2");
     }
 
     private void getMessage(String msg){
