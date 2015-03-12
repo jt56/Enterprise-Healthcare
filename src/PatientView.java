@@ -152,9 +152,6 @@ public class PatientView extends AbstractEntity {
             System.out.print("zip: ");
             System.out.println(g.getZip());
 
-
-            System.out.print("\n\nThanks! Goodbye!");
-
         }
 
         boolean isEdit = true;
