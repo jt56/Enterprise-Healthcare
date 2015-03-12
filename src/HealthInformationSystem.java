@@ -1,69 +1,40 @@
+import java.util.Scanner;
 
 public class HealthInformationSystem {
 
     public static void main(String[] args) {
-//        RunSQL r = new RunSQL();
-//        r.run("healthInformationSystem.sql");
-//        
-//        String hme_vals[] = new String[]{"pat2", "prov", "guard", "give", null, "suf", "gen", "birth", "last", "xml"};
-//        PatientEntity pat = new PatientEntity(hme_vals);
-//        pat.run();
-//
-//        GuardianEntity grd = new GuardianEntity();
-//        grd.run();
-//
-//        AuthorEntity aut = new AuthorEntity();
-//        aut.run();
-//
-//        InsuranceCompanyEntity icom = new InsuranceCompanyEntity();
-//        icom.run();
-//
-//        FamilyHistoryEntity fhist = new FamilyHistoryEntity();
-//        fhist.run();
-//
-//        LabTestReportEntity ltr = new LabTestReportEntity();
-//        ltr.run();
-//
-//        AllergyEntity alrg = new AllergyEntity();
-//        alrg.run();
-//
-//        PlanEntity pln = new PlanEntity();
-//        pln.run();
-//
-//        VisitsLabRelation vlr = new VisitsLabRelation();
-//        vlr.run();
-//
-//        HasInsuranceCompanyRelation hicr = new HasInsuranceCompanyRelation();
-//        hicr.run();
-//
-//        HasAuthorRelation har = new HasAuthorRelation();
-//        har.run();
-//
-//        HasPlanRelation hpr = new HasPlanRelation();
-//        hpr.run();
-
-
-//        pat.retrievePatient( "pat2" );
-//        System.out.println(pat.getGender());
-//        System.out.println(pat.getPatientId());
-//        System.out.println(pat.getProviderId());
-//
-//        System.out.println();
-//        grd.retrieveGuardian("guard");
-//        System.out.println(grd.getPatientid());
-//        System.out.println(grd.getGuardianno());
 
         MessageExchangeSystem mes = new MessageExchangeSystem();
         mes.run();
         
+        
+        Scanner reader = new Scanner(System.in);
+//        String input = reader.next();
+
+//
+//        if ( input == "y" || input == "yes" || input == "Y" || input == "Yes" ) {
+//            isEdit = true;
+//        }
+        System.out.println("Patient, Doctor, Author, or Admin: ");
+        String priv;
+        priv = reader.next();
+        priv.toString();
 //        PatientView pV = new PatientView("0");
-//
-//        PatientView pV2 = new PatientView("12444");
-//
-//        DrAuthorView d = new DrAuthorView("12444");
+
+        System.out.println("What is your id?");
+        String uid;
+        uid = reader.next();
+        uid.toString();
         
-        AdminView adv = new AdminView("12444");
-        
+        if ( priv == "Patient" || priv == "patient") {
+            PatientView pV = new PatientView(uid);
+        }
+        if ( priv == "Doctor" || priv == "doctor" || priv == "Author" || priv == "author" ) {
+            DrAuthorView d = new DrAuthorView(uid);
+        }
+        if ( priv == "Admin" || priv == "admin" ) {
+            AdminView adv = new AdminView(uid);
+        }
 
 
     }
