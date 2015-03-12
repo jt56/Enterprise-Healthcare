@@ -6,26 +6,28 @@ public class HealthInformationSystem {
         PatientEntity pat = new PatientEntity(hme_vals);
         pat.run();
 
-//        GuardianEntity grd = new GuardianEntity();
-//        grd.run();
-//
-//        AuthorEntity aut = new AuthorEntity();
-//        aut.run();
-//
-//        InsuranceCompanyEntity icom = new InsuranceCompanyEntity();
-//        icom.run();
-//
-//        FamilyHistoryEntity fhist = new FamilyHistoryEntity();
-//        fhist.run();
-//
-//        LabTestReportEntity ltr = new LabTestReportEntity();
-//        ltr.run();
-//
-//        AllergyEntity alrg = new AllergyEntity();
-//        alrg.run();
-//
-//        PlanEntity pln = new PlanEntity();
-//        pln.run();
+        GuardianEntity grd = new GuardianEntity();
+        grd.run();
+
+        AuthorEntity aut = new AuthorEntity();
+        aut.run();
+
+        InsuranceCompanyEntity icom = new InsuranceCompanyEntity();
+        icom.run();
+
+        FamilyHistoryEntity fhist = new FamilyHistoryEntity();
+        fhist.run();
+
+        LabTestReportEntity ltr = new LabTestReportEntity();
+        ltr.run();
+
+        AllergyEntity alrg = new AllergyEntity();
+        alrg.run();
+
+        PlanEntity pln = new PlanEntity();
+        pln.run();
+        
+        
     }
     
 }

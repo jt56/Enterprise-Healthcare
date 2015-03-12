@@ -27,7 +27,7 @@ public class LabTestReportEntity extends AbstractEntity {
     public LabTestReportEntity() {
         this.tableName = "Lab_Test_Reports";
         this.tableKeys = new String[]{"labtestresultid", "patientvisitid", "labtestperformeddate", "labtesttype", "testresultvalue", "referencerangehigh", "referencerangelow"};
-        this.tableValues = new String[]{"lab", "pat", "ldate", "ltyp", "tst", "tsth", "tstl"};
+        this.tableValues = new String[]{"'lab'", "'pat'", "'ldate'", "'ltyp'", "'tst'", "'tsth'", "'tstl'"};
 
         this.createInputString();
 
