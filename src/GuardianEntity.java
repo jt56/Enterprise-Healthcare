@@ -26,7 +26,7 @@ public class GuardianEntity extends AbstractEntity {
     */
 
     public GuardianEntity() {
-        this.tableName = "GUARDIAN";
+        this.tableName = "Guardian";
         this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "phone", "address", "city", "state", "zip"};
         this.tableValues = new String[]{"guard", "pat2", "giv", "fam", "pho", "addr", "city", "st", "zip"};
 
@@ -35,7 +35,7 @@ public class GuardianEntity extends AbstractEntity {
     }
 
     public GuardianEntity( String x[] ) {
-        this.tableName = "GUARDIAN";
+        this.tableName = "Guardian";
         this.tableKeys = new String[]{"guardianno", "patientid", "givenname", "familyname", "phone", "address", "city", "state", "zip"};
 
         this.tableValues = new String[tableKeys.length];

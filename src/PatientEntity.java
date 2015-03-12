@@ -34,7 +34,7 @@ public class PatientEntity extends AbstractEntity {
     */
     
     public PatientEntity() {
-        this.tableName = "PATIENT";
+        this.tableName = "Patient";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
 //        this.tableValues = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
 
@@ -43,7 +43,7 @@ public class PatientEntity extends AbstractEntity {
     }
     
     public PatientEntity( String x[] ) {
-        this.tableName = "PATIENT";
+        this.tableName = "Patient";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "xmlHealthCreation"};
 
         this.tableValues = new String[tableKeys.length];

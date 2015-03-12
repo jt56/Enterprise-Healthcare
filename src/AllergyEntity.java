@@ -17,7 +17,7 @@ public class AllergyEntity extends AbstractEntity {
     */
 
     public AllergyEntity() {
-        this.tableName = "ALLERGIES";
+        this.tableName = "Allergies";
         this.tableKeys = new String[]{"substance", "patientid", "reaction", "status"};
         this.tableValues = new String[]{"sub", "pat2", "rct", "stat"};
 
@@ -27,7 +27,7 @@ public class AllergyEntity extends AbstractEntity {
 
 
     public AllergyEntity( String x[] ) {
-        this.tableName = "ALLERGIES";
+        this.tableName = "Allergies";
         this.tableKeys = new String[]{"substance", "patientid", "reaction", "status"};
 
         this.tableValues = new String[tableKeys.length];

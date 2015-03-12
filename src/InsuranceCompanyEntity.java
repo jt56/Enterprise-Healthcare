@@ -20,7 +20,7 @@ public class InsuranceCompanyEntity extends AbstractEntity {
     */
 
     public InsuranceCompanyEntity() {
-        this.tableName = "INSURANCE_COMPANY";
+        this.tableName = "Insurance_Company";
         this.tableKeys = new String[]{"payerid", "name", "policytype"};
         this.tableValues = new String[]{"pay", "nam", "plcy"};
 
@@ -29,7 +29,7 @@ public class InsuranceCompanyEntity extends AbstractEntity {
     }
 
     public InsuranceCompanyEntity( String x[] ) {
-        this.tableName = "INSURANCE_COMPANY";
+        this.tableName = "Insurance_Company";
         this.tableKeys = new String[]{"payerid", "name", "policytype"};
 
         this.tableValues = new String[tableKeys.length];
