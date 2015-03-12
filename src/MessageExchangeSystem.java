@@ -91,7 +91,11 @@ public class MessageExchangeSystem {
      * Connect to MySQL and do some stuff.
      */
     public void run() {
+        getMessage("messages");
+//        getMessage("messages2");
+    }
 
+    private void getMessage(String msg){
         setProperties();
 
         // Connect to MySQL
@@ -104,9 +108,9 @@ public class MessageExchangeSystem {
             e.printStackTrace();
             return;
         }
-
         try {
-            tableName = "messages";
+
+            tableName = msg;
             query = "SELECT * FROM " + tableName;
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -195,11 +199,18 @@ public class MessageExchangeSystem {
 
             }
 
-            System.out.println("Finished executing query");
+            System.out.println("Finished executing " + msg);
         } catch (SQLException e) {
-            System.out.println("ERROR: Could not get data");
+            System.out.println("ERROR: Could not get data from " + msg);
             e.printStackTrace();
             return;
+        }
+
+        try{
+            conn.close();
+
+        } catch (SQLException e){
+            System.out.println("Could not close connection");
         }
     }
 
