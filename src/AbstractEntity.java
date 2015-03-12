@@ -2,6 +2,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import java.io.File;
@@ -43,6 +45,7 @@ public abstract class AbstractEntity {
     protected String query;
     protected String tableKeys[];
     protected String tableValues[];
+    protected Map<String, String> queryResults = new HashMap<String, String>();
     
     private Properties loadEnvProperties (String fileName) throws Exception {
         InputStream is = new FileInputStream(fileName);

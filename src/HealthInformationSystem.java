@@ -29,24 +29,33 @@ public class HealthInformationSystem {
 
         PlanEntity pln = new PlanEntity();
         pln.run();
-        
+
         VisitsLabRelation vlr = new VisitsLabRelation();
         vlr.run();
-        
+
         HasInsuranceCompanyRelation hicr = new HasInsuranceCompanyRelation();
         hicr.run();
-        
+
         HasAuthorRelation har = new HasAuthorRelation();
         har.run();
-        
+
         HasPlanRelation hpr = new HasPlanRelation();
         hpr.run();
-        
-        
-        pat.retrievePatient( "pat2" );
-        System.out.println(pat.getGender());
-        System.out.println(pat.getPatientId());
-        System.out.println(pat.getProviderId());
+
+
+//        pat.retrievePatient( "pat2" );
+//        System.out.println(pat.getGender());
+//        System.out.println(pat.getPatientId());
+//        System.out.println(pat.getProviderId());
+//
+//        System.out.println();
+//        grd.retrieveGuardian("guard");
+//        System.out.println(grd.getPatientid());
+//        System.out.println(grd.getGuardianno());
+
+        PatientView pV = new PatientView("pat2asdfasfg");
+
+        PatientView pV2 = new PatientView("pat2");
         
     }
     

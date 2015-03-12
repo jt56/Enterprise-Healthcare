@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class GuardianEntity extends AbstractEntity {
     
@@ -53,12 +57,76 @@ public class GuardianEntity extends AbstractEntity {
 
         this.createInputString();
     }
+
+    public void retrieveGuardian( String gid ) {
+
+        setProperties();
+
+        // Connect to MySQL
+        Connection conn = null;
+        try {
+            conn = this.getConnection();
+            System.out.println("Connected to database");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not connect to the database");
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+
+            this.query = "SELECT * FROM " + this.tableName;
+//            this.query += " WHERE guardianno = " + "'" + gid + "'";
+            this.query += " WHERE patientid = " + "'" + gid + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(this.query);
+
+
+            while (rs.next()) {
+//                "guardianno", "patientid", "givenname", "familyname", "relationship", "phone", "address", "city", "state", "zip"};
+                queryResults.put("guardianno", rs.getString("guardianno"));
+                queryResults.put("patientid", rs.getString("patientid"));
+                queryResults.put("givenname", rs.getString("givenname"));
+                queryResults.put("familyname", rs.getString("familyname"));
+                queryResults.put("relationship", rs.getString("relationship"));
+                queryResults.put("phone", rs.getString("phone"));
+                queryResults.put("address", rs.getString("address"));
+                queryResults.put("city", rs.getString("city"));
+                queryResults.put("state", rs.getString("state"));
+                queryResults.put("zip", rs.getString("zip"));
+            }
+
+            setAll();
+
+            queryResults.clear();
+
+            System.out.println("Finished executing query");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not get data");
+            e.printStackTrace();
+            return;
+        }
+    }
     
     /*
     ######################
     #   Getters/Setters  #
     ######################
     */
+
+    public void setAll() {
+
+        setGuardianno(queryResults.get("guardianno"));
+        setPatientid(queryResults.get("patientid"));
+        setGivenname(queryResults.get("givenname"));
+        setFamilyname(queryResults.get("familyname"));
+        setRelationship(queryResults.get("relationship"));
+        setPhone(queryResults.get("phone"));
+        setAddress(queryResults.get("address"));
+        setCity(queryResults.get("city"));
+        setState(queryResults.get("state"));
+        setZip(queryResults.get("zip"));
+    }
 
     public static String getGuardianno() {
         return guardianno;
