@@ -43,7 +43,7 @@ public class HealthInformationSystem {
         hpr.run();
         
         
-        pat.retrievePatient( "pat2");
+        pat.retrievePatient( "pat2" );
         System.out.println(pat.getGender());
         System.out.println(pat.getPatientId());
         System.out.println(pat.getProviderId());

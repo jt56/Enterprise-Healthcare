@@ -1,3 +1,15 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class PatientEntity extends AbstractEntity {
     
@@ -7,7 +19,7 @@ public class PatientEntity extends AbstractEntity {
     #####################
     */
     
-    // patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, xmlHealthCreation
+    // patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, lastaccessed, xmlHealthCreation
     
     private static String patientid;
     
@@ -28,6 +40,8 @@ public class PatientEntity extends AbstractEntity {
     private static String lastaccessed;
     
     private static String xmlHealthCreation;
+
+    private Map<String, String> queryResults = new HashMap<String, String>();
     
     /*
     #######################
@@ -61,6 +75,73 @@ public class PatientEntity extends AbstractEntity {
         this.createInputString();
     }
 
+    public void retrievePatient( String pid ) {
+        
+        setProperties();
+
+        // Connect to MySQL
+        Connection conn = null;
+        try {
+            conn = this.getConnection();
+            System.out.println("Connected to database");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not connect to the database");
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+
+            this.query = "SELECT * FROM " + this.tableName;
+            this.query += " WHERE patientid = " + "'" + pid + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(this.query);
+
+            
+            while (rs.next()) {
+                queryResults.put("patientid", rs.getString("patientid"));
+                queryResults.put("providerid", rs.getString("providerid"));
+                queryResults.put("patientrole", rs.getString("patientrole"));
+                queryResults.put("givenname", rs.getString("givenname"));
+                queryResults.put("familymame", rs.getString("familyname"));
+                queryResults.put("suffix", rs.getString("suffix"));
+                queryResults.put("gender", rs.getString("gender"));
+                queryResults.put("birthtime", rs.getString("birthtime"));
+                queryResults.put("lastaccessed", rs.getString("lastaccessed"));
+                queryResults.put("xmlHealthCreation", rs.getString("xmlHealthCreation"));
+            }
+            
+            setAll();
+
+            queryResults.clear();                
+
+            System.out.println("Finished executing query");
+        } catch (SQLException e) {
+            System.out.println("ERROR: Could not get data");
+            e.printStackTrace();
+            return;
+        }
+    }
+
+//    private void setPatientEntity() {
+//        String[] x = new String[]{
+//                queryResults.get("patientId"),
+//                queryResults.get("providerid"),
+//                queryResults.get("patientrole"),
+//                queryResults.get("givenname"),
+//                queryResults.get("familymame"),
+//                queryResults.get("suffix"),
+//                queryResults.get("gender"),
+//                queryResults.get("birthtime"),
+//                queryResults.get("lastaccessed"),
+//                queryResults.get("xmlHealthCreation")
+//        };
+//
+//        setAll();
+//
+//        queryResults.clear();
+//    }
+
     
     /*
     ######################
@@ -68,12 +149,36 @@ public class PatientEntity extends AbstractEntity {
     ######################
     */
 
+    public void setAll() {
+
+        setPatientId(queryResults.get("patientid"));
+
+        setProviderId(queryResults.get("providerid"));
+
+        setPatientRole(queryResults.get("patientrole"));
+
+        setGivenName(queryResults.get("givenname"));
+        
+        setFamilyName(queryResults.get("familyname"));
+
+        setSuffix(queryResults.get("suffix"));
+        
+        setGender(queryResults.get("gender"));
+        
+        setBirthTime(queryResults.get("birthtime"));
+
+        setLastAccessed(queryResults.get("lastaccessed"));
+
+        setXmlHealthCreation(queryResults.get("xmlHealthCreation"));                                    
+    }
+    
+    
     public String getPatientId() {
         return patientid;
     }
 
-    public void setPatientId(String providerid) {
-        this.patientid = providerid;
+    public void setPatientId(String patientid) {
+        this.patientid = patientid;
     }
 
     public String getProviderId() {
