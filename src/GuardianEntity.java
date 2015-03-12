@@ -8,6 +8,8 @@ public class GuardianEntity extends AbstractEntity {
     */
     
     // 	guardianno, patientid, givenname, familyname, phone, address, city, state, zip
+
+    // FK: planpatientid -> Patient.patientid
     
     private static String guardianno;
     private static String patientid;
