@@ -225,6 +225,8 @@ public class MessageExchangeSystem {
 
         AuthorEntity e = new AuthorEntity(tableKeys);
         e.run();
+
+        setHasAuthor(); // relation
     }
 
     private void setFamilyHistoryEntity() {
@@ -268,6 +270,8 @@ public class MessageExchangeSystem {
 
         InsuranceCompanyEntity e = new InsuranceCompanyEntity(tableKeys);
         e.run();
+
+        setHasInsuranceCompany(); // add relation
     }
 
     private void setLabTestReportEntity() {
@@ -282,6 +286,8 @@ public class MessageExchangeSystem {
 
         LabTestReportEntity e = new LabTestReportEntity(tableValues);
         e.run();
+
+        setVisitsLab();
     }
 
     private void setPatientEntity() {
@@ -295,7 +301,7 @@ public class MessageExchangeSystem {
                 null, //gender
                 queryResults.get("BirthTime"),
                 queryResults.get("Last_Accessed"), // add to SQL
-                "xmlHealthCreation"};
+                null }; //"xmlHealthCreation"};
 
         PatientEntity p = new PatientEntity(tableValues);
         p.run();
@@ -309,25 +315,49 @@ public class MessageExchangeSystem {
 
         PlanEntity e = new PlanEntity(tableValues);
         e.run();
+
+        setHasPlan();
     }
 
     private void setHasInsuranceCompany(){
-        queryResults.get("Purpose"); //add has_Insurance
+        String[] tableValues = new String[]{
+                queryResults.get("patientId"),
+                queryResults.get("PayerId"),
+                queryResults.get("Purpose") //add has_Insurance
+        };
+
+        HasInsuranceCompanyRelation e = new HasInsuranceCompanyRelation(tableValues);
+        e.run();
 
     }
 
     private void setVisitsLab(){
+        String[] tableValues = new String[]{
+                queryResults.get("patientId"),
+                queryResults.get("LabTestResultId")};
+        VisitsLabRelation e = new VisitsLabRelation(tableValues);
+        e.run();
 
     }
 
     private void setHasAuthor(){
-        queryResults.get("ParticipatingRole");
-
+        String[] tableValues = new String[]{
+                queryResults.get("patientId"),
+                queryResults.get("AuthorId"),
+                queryResults.get("ParticipatingRole")};
+        HasAuthorRelation e = new HasAuthorRelation(tableValues);
+        e.run();
 
     }
 
     private void setHasPlan(){
-        queryResults.get("ScheduledDate"); // in has_plan plandate
+        String[] tableValues = new String[]{
+                queryResults.get("patientId"),
+                queryResults.get("PlanId"),
+                queryResults.get("ScheduledDate")}; // in has_plan plandate
+
+        HasPlanRelation e = new HasPlanRelation(tableValues);
+        e.run();
 
     }
 }
