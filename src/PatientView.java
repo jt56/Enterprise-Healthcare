@@ -174,7 +174,6 @@ public class PatientView extends AbstractEntity {
             System.out.println(" Which table, Patient or Guardian: ");
             String table;
             table = reader.next();
-            System.out.println(table);
             if (table.equals("Patient")) {
                 System.out.println(" What value would you like to update: ");
                 String updateColumn;

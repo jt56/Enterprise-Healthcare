@@ -97,7 +97,6 @@ public class AdminView extends AbstractEntity {
             System.out.println(" Which table: Patient, Plan, or Allergy ");
             String table;
             table = reader.next();
-            System.out.println(table);
             if (table.equals("Patient")) {
                 System.out.println(" What value would you like to update: ");
                 String updateColumn;
