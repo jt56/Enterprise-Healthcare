@@ -60,6 +60,9 @@ public class HealthInformationSystem {
 
         PatientView pV2 = new PatientView("12444");
 
+        DrAuthorView d = new DrAuthorView("12444");
+
+
     }
     
 }
