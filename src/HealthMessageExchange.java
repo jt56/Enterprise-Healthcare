@@ -7,7 +7,9 @@ public class HealthMessageExchange {
 
 //        RunSQL r = new RunSQL();
 //        r.run("healthInformationSystem.sql");
-        
+
+//        DateConversion d = new DateConversion();
+//        System.out.println(d.currentDate());
     }
 
 }

@@ -91,7 +91,7 @@ public class MessageExchangeSystem {
      * Connect to MySQL and do some stuff.
      */
     public void run() {
-//        getMessage("messages");
+        getMessage("messages");
         getMessage("messages2");
     }
 
@@ -187,7 +187,7 @@ public class MessageExchangeSystem {
                 queryResults.put("ScheduledDate", rs.getString("ScheduledDate"));
 
 
-                //call the setmethods that input the data to the DB
+                //call the set methods that input the data to the DB
                 setPatientEntity();
                 setGuardianEntity();
                 setAuthorEntity();
@@ -228,32 +228,36 @@ public class MessageExchangeSystem {
     }
 
     private void setAuthorEntity() {
-        String[] tableKeys = new String[]{
+        String[] tableValues = new String[]{
                 queryResults.get("AuthorId"),
                 queryResults.get("AuthorTitle"),
                 queryResults.get("AuthorFirstName"),
                 queryResults.get("AuthorLastName")};
 
-        AuthorEntity e = new AuthorEntity(tableKeys);
+        AuthorEntity e = new AuthorEntity(tableValues);
         e.run();
 
         setHasAuthor(); // relation
     }
 
     private void setFamilyHistoryEntity() {
-        String[] tableKeys = new String[]{
+        String[] tableValues = new String[]{
                 queryResults.get("RelativeId"),
                 queryResults.get("patientId"),
                 queryResults.get("Relation"),
                 queryResults.get("age"),
                 queryResults.get("Diagnosis")};
 
-        FamilyHistoryEntity e = new FamilyHistoryEntity(tableKeys);
+        FamilyHistoryEntity e = new FamilyHistoryEntity(tableValues);
         e.run();
     }
 
     private void setGuardianEntity() {
-        String[] tableKeys = new String[]{
+        //checks the zip length. if it is not 5 then it is set to null
+//        if(queryResults.get("zip").length() != 5){
+//            queryResults.put("zip", null);
+//        }
+        String[] tableValues = new String[]{
                 queryResults.get("GuardianNo"),
                 queryResults.get("patientId"),
                 queryResults.get("FirstName"),
@@ -265,21 +269,21 @@ public class MessageExchangeSystem {
                 queryResults.get("state"),
                 queryResults.get("zip")};
 
-        GuardianEntity e = new GuardianEntity(tableKeys);
+        GuardianEntity e = new GuardianEntity(tableValues);
         e.run();
 
     }
 
     private void setInsuranceEntity() {
 
-        String[] tableKeys = new String[]{
+        String[] tableValues = new String[]{
                 queryResults.get("PayerId"),
                 queryResults.get("Name"),
                 queryResults.get("PolicyHolder"), //add
                 queryResults.get("PolicyType"),
         };
 
-        InsuranceCompanyEntity e = new InsuranceCompanyEntity(tableKeys);
+        InsuranceCompanyEntity e = new InsuranceCompanyEntity(tableValues);
         e.run();
 
         setHasInsuranceCompany(); // add relation
@@ -314,8 +318,8 @@ public class MessageExchangeSystem {
                 queryResults.get("Last_Accessed"), // add to SQL
                 null }; //"xmlHealthCreation"};
 
-        PatientEntity p = new PatientEntity(tableValues);
-        p.run();
+        PatientEntity e = new PatientEntity(tableValues);
+        e.run();
     }
 
     private void setPlanEntity() {
@@ -362,10 +366,15 @@ public class MessageExchangeSystem {
     }
 
     private void setHasPlan(){
+        //date test
+//        DateConversion d = new DateConversion();
+//        String currDate = d.currentDate();
+
         String[] tableValues = new String[]{
                 queryResults.get("patientId"),
                 queryResults.get("PlanId"),
                 queryResults.get("ScheduledDate")}; // in has_plan plandate
+//                currDate};
 
         HasPlanRelation e = new HasPlanRelation(tableValues);
         e.run();

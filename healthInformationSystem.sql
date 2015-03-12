@@ -10,7 +10,7 @@ USE health_information_system;
 CREATE TABLE Patient(
 	patientid VARCHAR(100),
 	providerid VARCHAR(100),
-	patientrole VARCHAR(100),
+	patientrole INT,
 	givenname VARCHAR(100),
 	familyname VARCHAR(100),
 	suffix VARCHAR(100),
@@ -85,7 +85,8 @@ CREATE TABLE Lab_Test_Reports(
 	testresultvalue VARCHAR(100),
 	referencerangehigh VARCHAR(100),
 	referencerangelow VARCHAR(100),
-	PRIMARY KEY(labtestresultid, patientvisitid)
+	#PRIMARY KEY(labtestresultid, patientvisitid)
+  PRIMARY KEY (labtestresultid)
 );
 
 CREATE TABLE Plan(
