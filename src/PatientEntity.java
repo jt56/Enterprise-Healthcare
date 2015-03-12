@@ -167,7 +167,11 @@ public class PatientEntity extends AbstractEntity {
 
         setBirthTime(queryResults.get("birthtime"));
 
+
+        DateConversion d = new DateConversion();
+        queryResults.put("lastaccessed", d.currentDate());
         setLastAccessed(queryResults.get("lastaccessed"));
+
 
         setXmlHealthCreation(queryResults.get("xmlHealthCreation"));
     }
