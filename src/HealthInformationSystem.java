@@ -5,7 +5,7 @@ public class HealthInformationSystem {
         RunSQL r = new RunSQL();
         r.run("healthInformationSystem.sql");
         
-        String hme_vals[] = new String[]{"pat2", "prov", "patrole", "give", null, "suf", "gen", "birth", "xml"};
+        String hme_vals[] = new String[]{"pat2", "prov", "guard", "give", null, "suf", "gen", "birth", "last", "xml"};
         PatientEntity pat = new PatientEntity(hme_vals);
         pat.run();
 
@@ -41,6 +41,12 @@ public class HealthInformationSystem {
         
         HasPlanRelation hpr = new HasPlanRelation();
         hpr.run();
+        
+        
+        pat.retrievePatient( "pat2");
+        System.out.println(pat.getGender());
+        System.out.println(pat.getPatientId());
+        System.out.println(pat.getProviderId());
         
     }
     

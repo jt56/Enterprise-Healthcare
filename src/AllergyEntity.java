@@ -20,7 +20,7 @@ public class AllergyEntity extends AbstractEntity {
     public AllergyEntity() {
         this.tableName = "Allergies";
         this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
-        this.tableValues = new String[]{"'sub'", "'pat2'", "'rct'", "'stat'"};
+        this.tableValues = new String[]{"'id'", "'sub'", "'pat2'", "'rct'", "'stat'"};
 
         this.createInputString();
 
