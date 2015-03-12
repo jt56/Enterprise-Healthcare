@@ -76,6 +76,7 @@ public class PatientView extends AbstractEntity {
         pat.retrievePatient(userId);
         System.out.println("\nWelcome " + userId + "\n Below is your information:");
 
+        System.out.println("PATIENT INFO");
 
         System.out.print("patientid: ");
         System.out.println(pat.getPatientId());
@@ -111,14 +112,15 @@ public class PatientView extends AbstractEntity {
         System.out.println();
         System.out.println();
         System.out.println();
-        
-//        pat.setPatientRole(null);
-        
-        if ( pat.getPatientRole() != null ) {
 
-            g.retrieveGuardian( userId );
-            
+//        pat.setPatientRole(null);
+
+        if (pat.getPatientRole() != null) {
+
+            g.retrieveGuardian(userId);
+
             // GUARDIAN TABLE
+            System.out.println("GUARDIAN INFO");
 
             System.out.print("guardianno: ");
             System.out.println(g.getGuardianno());
@@ -154,54 +156,158 @@ public class PatientView extends AbstractEntity {
             System.out.print("\n\nThanks! Goodbye!");
 
         }
-        
+
         boolean isEdit = true;
         System.out.println("Would you like to edit a value:");
         Scanner reader = new Scanner(System.in);
 //        String input = reader.next();
-        
+
 //
 //        if ( input == "y" || input == "yes" || input == "Y" || input == "Yes" ) {
 //            isEdit = true;
 //        }
 
+        boolean changePatient = false;
+        boolean changeGuardian = false;
+        
         while (isEdit) {
             System.out.println(" Which table, Patient or Guardian: ");
             String table;
             table = reader.next();
-            if ( table != "Patient" || table != "Guardian") {
+            System.out.println(table);
+            if (table.equals("Patient")) {
                 System.out.println(" What value would you like to update: ");
                 String updateColumn;
                 updateColumn = reader.next();
-                if( !Arrays.asList(pat.tableKeys).contains(updateColumn) ) {
+                if (Arrays.asList(pat.tableKeys).contains(updateColumn.toString())) {
                     System.out.println(" What should the value be: ");
                     String updateVal;
                     updateVal = reader.next();
-                    createUpdateQuery(table, updateColumn, updateVal , userId);
-                } 
-                else
+                    createUpdateQuery(table, updateColumn, updateVal.toString(), userId);
+                    changePatient = true;
+                } else
                     System.out.println("Column not in table");
-                System.out.println("Would you like to edit a value:");
-                
-                String input = reader.next();
-                if ( input == "y" || input == "yes" || input == "Y" || input == "Yes" ) {
-                    isEdit = true;
-                }
-                else
-                    isEdit = false;
-            } 
-            else
-                System.out.println("Incorrect input");   
-
-
-
-
-            GuardianEntity gr = new GuardianEntity();
-            gr.retrieveGuardian(userId);
-            System.out.print("NEWzip: ");
-            System.out.println(gr.getZip());
+            } else if (table.equals("Guardian")) {
+                System.out.println(" What value would you like to update: ");
+                String updateColumn;
+                updateColumn = reader.next();
+                if (Arrays.asList(g.tableKeys).contains(updateColumn.toString())) {
+                    System.out.println(" What should the value be: ");
+                    String updateVal;
+                    updateVal = reader.next();
+                    createUpdateQuery(table, updateColumn, updateVal.toString(), userId);
+                    changeGuardian = true;
+                } else
+                    System.out.println("Column not in table");
+            } else
+                System.out.println("Incorrect input");
+     
+            System.out.println("Would you like to edit another value:");
+            String input = reader.next();
+            input.toString();
+            if ( input.equals("y") || input.equals("yes") || input.equals("Y") || input.equals("Yes") ) {
+                isEdit = true;
+            } else
+                isEdit = false;
+            
+            
+        }
+         
+        if ( changePatient ) {
+            printPatient(userId);
         }
 
+        if ( changeGuardian ) {
+            printGuardian(userId);
+//            System.out.print("NEWzip: ");
+//            System.out.println(gr.getZip());
+        }
+    }
+
+    
+    public void printPatient( String uid ) {
+        
+        PatientEntity pp = new PatientEntity();
+        pp.retrievePatient(uid);
+        
+        pp.retrievePatient(uid);
+
+        System.out.println(" UPDATED PATIENT INFO");
+
+        System.out.print("patientid: ");
+        System.out.println(pp.getPatientId());
+
+        System.out.print("providerid: ");
+        System.out.println(pp.getProviderId());
+
+        System.out.print("patientrole: ");
+        System.out.println(pp.getPatientRole());
+
+        System.out.print("givenname: ");
+        System.out.println(pp.getGivenName());
+
+        System.out.print("familyname: ");
+        System.out.println(pp.getFamilyName());
+
+        System.out.print("suffix: ");
+        System.out.println(pp.getSuffix());
+
+        System.out.print("gender: ");
+        System.out.println(pp.getGender());
+
+        System.out.print("birthtime: ");
+        System.out.println(pp.getBirthTime());
+
+        System.out.print("lastaccessed: ");
+        System.out.println(pp.getLastAccessed());
+
+        System.out.print("xmlHealthCreation: ");
+        System.out.println(pp.getXmlHealthCreation());
+
+        System.out.println();
+        System.out.println();
+        
+    }
+
+    public void printGuardian( String uid ) {
+        GuardianEntity gr = new GuardianEntity();
+        gr.retrieveGuardian(uid);
+
+        // GUARDIAN TABLE
+        System.out.println("UPDATED GUARDIAN INFO");
+
+        System.out.print("guardianno: ");
+        System.out.println(gr.getGuardianno());
+
+        System.out.print("patientid: ");
+        System.out.println(gr.getPatientid());
+
+        System.out.print("givenname: ");
+        System.out.println(gr.getGivenname());
+
+        System.out.print("familyname: ");
+        System.out.println(gr.getFamilyname());
+
+        System.out.print("relationship: ");
+        System.out.println(gr.getRelationship());
+
+        System.out.print("phone: ");
+        System.out.println(gr.getPhone());
+
+        System.out.print("address: ");
+        System.out.println(gr.getAddress());
+
+        System.out.print("city: ");
+        System.out.println(gr.getCity());
+
+        System.out.print("state: ");
+        System.out.println(gr.getState());
+
+        System.out.print("zip: ");
+        System.out.println(gr.getZip());
+        
+        System.out.println();
+        System.out.println();
     }
 
     public void createUpdateQuery( String table, String column, String newVal, String userId ) {
