@@ -152,9 +152,24 @@ public class PatientView extends AbstractEntity {
 
         }
         
+    System.out.println(" Updating zip");
+    createUpdateQuery( "zip", "15134", userId );
+
+        GuardianEntity gr = new GuardianEntity();
+        gr.retrieveGuardian(userId);
+        System.out.print("NEWzip: ");
+        System.out.println(gr.getZip());
 
     }
-    
+
+    public void createUpdateQuery( String column, String newVal, String userId ) {
+//        this.query = "UPDATE " + this.tableName + " ";
+        this.query = "UPDATE Guardian ";
+        this.query += "SET " + column + " = '" + newVal + "' ";
+        this.query += "WHERE patientid = '" + userId + "';";
+
+        run();
+    }
     
     
     
