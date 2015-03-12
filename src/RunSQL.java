@@ -10,7 +10,7 @@ import org.apache.ibatis.jdbc.ScriptRunner;
  */
 
 
-public class runSQL {
+public class RunSQL {
     /**
      * The name of the MySQL account to use (or empty for anonymous)
      */
@@ -74,7 +74,7 @@ public class runSQL {
         connectionProps.put("password", this.password);
 
         conn = DriverManager.getConnection("jdbc:mysql://"
-                        + this.serverName + ":" + this.portNumber + "/" + this.dbName,
+                        + this.serverName + ":" + this.portNumber + "/",
                 connectionProps);
 
         return conn;
@@ -97,8 +97,8 @@ public class runSQL {
 
         try{
             ScriptRunner runner = new ScriptRunner(conn);
-            System.out.println("Executed " + filePath);
             runner.runScript(new BufferedReader(new FileReader(filePath)));
+            System.out.println("Executed " + filePath);
         } catch (Exception e){
             System.err.println("Error: file not found " + filePath);
             e.printStackTrace();
