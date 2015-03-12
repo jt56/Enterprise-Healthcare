@@ -103,7 +103,7 @@ public class PatientEntity extends AbstractEntity {
                 queryResults.put("providerid", rs.getString("providerid"));
                 queryResults.put("patientrole", rs.getString("patientrole"));
                 queryResults.put("givenname", rs.getString("givenname"));
-                queryResults.put("familymame", rs.getString("familyname"));
+                queryResults.put("familyname", rs.getString("familyname"));
                 queryResults.put("suffix", rs.getString("suffix"));
                 queryResults.put("gender", rs.getString("gender"));
                 queryResults.put("birthtime", rs.getString("birthtime"));
