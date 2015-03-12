@@ -18,27 +18,27 @@ public class PatientEntity extends AbstractEntity {
     #       Fields      #
     #####################
     */
-    
+
     // patientid, providerid, patientrole, givenname, familyname, suffix, gender, birthtime, lastaccessed, xmlHealthCreation
-    
+
     private static String patientid;
-    
+
     private static String providerid;
-    
+
     private static String patientrole;
-    
+
     private static String givenname;
-    
+
     private static String familyname;
-    
+
     private static String suffix;
-    
+
     private static String gender;
-    
+
     private static String birthtime;
 
     private static String lastaccessed;
-    
+
     private static String xmlHealthCreation;
 
 //    private Map<String, String> queryResults = new HashMap<String, String>();
@@ -57,7 +57,7 @@ public class PatientEntity extends AbstractEntity {
 //        this.createInputString();
 //
     }
-    
+
     public PatientEntity( String x[] ) {
         this.tableName = "Patient";
         this.tableKeys = new String[]{"patientid", "providerid", "patientrole", "givenname", "familyname", "suffix", "gender", "birthtime", "lastaccessed", "xmlHealthCreation"};
@@ -71,12 +71,12 @@ public class PatientEntity extends AbstractEntity {
                 tableValues[i] = "'" + x[i] + "'";
             }
         }
-        
+
         this.createInputString();
     }
-    
+
     public void retrievePatient( String pid ) {
-        
+
         setProperties();
 
         // Connect to MySQL
@@ -97,7 +97,7 @@ public class PatientEntity extends AbstractEntity {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(this.query);
 
-            
+
             while (rs.next()) {
                 queryResults.put("patientid", rs.getString("patientid"));
                 queryResults.put("providerid", rs.getString("providerid"));
@@ -110,10 +110,10 @@ public class PatientEntity extends AbstractEntity {
                 queryResults.put("lastaccessed", rs.getString("lastaccessed"));
                 queryResults.put("xmlHealthCreation", rs.getString("xmlHealthCreation"));
             }
-            
+
             setAll();
 
-            queryResults.clear();                
+            queryResults.clear();
 
             System.out.println("Finished executing query");
         } catch (SQLException e) {
@@ -158,18 +158,18 @@ public class PatientEntity extends AbstractEntity {
         setPatientRole(queryResults.get("patientrole"));
 
         setGivenName(queryResults.get("givenname"));
-        
+
         setFamilyName(queryResults.get("familyname"));
 
         setSuffix(queryResults.get("suffix"));
-        
+
         setGender(queryResults.get("gender"));
-        
+
         setBirthTime(queryResults.get("birthtime"));
 
         setLastAccessed(queryResults.get("lastaccessed"));
 
-        setXmlHealthCreation(queryResults.get("xmlHealthCreation"));                                    
+        setXmlHealthCreation(queryResults.get("xmlHealthCreation"));
     }
 
     public String getPatientId() {
@@ -183,7 +183,7 @@ public class PatientEntity extends AbstractEntity {
     public String getProviderId() {
         return providerid;
     }
-    
+
     public void setProviderId(String providerid) {
         this.providerid = providerid;
     }
@@ -231,7 +231,7 @@ public class PatientEntity extends AbstractEntity {
     public String getBirthTime() {
         return birthtime;
     }
-    
+
     public void setBirthTime(String birthtime) {
         this.birthtime = birthtime;
     }
@@ -247,5 +247,5 @@ public class PatientEntity extends AbstractEntity {
     public void setXmlHealthCreation(String xmlHealthCreation) {
         this.xmlHealthCreation = xmlHealthCreation;
     }
-    
+
 }

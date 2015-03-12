@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.io.Console;
+import java.util.Arrays;
 
 public class PatientView extends AbstractEntity {
 
@@ -152,19 +155,58 @@ public class PatientView extends AbstractEntity {
 
         }
         
-    System.out.println(" Updating zip");
-    createUpdateQuery( "zip", "15134", userId );
+        boolean isEdit = true;
+        System.out.println("Would you like to edit a value:");
+        Scanner reader = new Scanner(System.in);
+//        String input = reader.next();
+        
+//
+//        if ( input == "y" || input == "yes" || input == "Y" || input == "Yes" ) {
+//            isEdit = true;
+//        }
 
-        GuardianEntity gr = new GuardianEntity();
-        gr.retrieveGuardian(userId);
-        System.out.print("NEWzip: ");
-        System.out.println(gr.getZip());
+        while (isEdit) {
+            System.out.println(" Which table, Patient or Guardian: ");
+            String table;
+            table = reader.next();
+            if ( table != "Patient" || table != "Guardian") {
+                System.out.println(" What value would you like to update: ");
+                String updateColumn;
+                updateColumn = reader.next();
+                if( !Arrays.asList(pat.tableKeys).contains(updateColumn) ) {
+                    System.out.println(" What should the value be: ");
+                    String updateVal;
+                    updateVal = reader.next();
+                    createUpdateQuery(table, updateColumn, updateVal , userId);
+                } 
+                else
+                    System.out.println("Column not in table");
+                System.out.println("Would you like to edit a value:");
+                
+                String input = reader.next();
+                if ( input == "y" || input == "yes" || input == "Y" || input == "Yes" ) {
+                    isEdit = true;
+                }
+                else
+                    isEdit = false;
+            } 
+            else
+                System.out.println("Incorrect input");   
+
+
+
+
+            GuardianEntity gr = new GuardianEntity();
+            gr.retrieveGuardian(userId);
+            System.out.print("NEWzip: ");
+            System.out.println(gr.getZip());
+        }
 
     }
 
-    public void createUpdateQuery( String column, String newVal, String userId ) {
+    public void createUpdateQuery( String table, String column, String newVal, String userId ) {
 //        this.query = "UPDATE " + this.tableName + " ";
-        this.query = "UPDATE Guardian ";
+        this.query = "UPDATE " + table + " ";
         this.query += "SET " + column + " = '" + newVal + "' ";
         this.query += "WHERE patientid = '" + userId + "';";
 

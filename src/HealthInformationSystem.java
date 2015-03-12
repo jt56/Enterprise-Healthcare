@@ -56,7 +56,7 @@ public class HealthInformationSystem {
         PatientView pV = new PatientView("pat2asdfasfg");
 
         PatientView pV2 = new PatientView("pat2");
-        
+
     }
     
 }

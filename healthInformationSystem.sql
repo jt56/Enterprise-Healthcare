@@ -10,7 +10,7 @@ USE health_information_system;
 CREATE TABLE Patient(
 	patientid VARCHAR(100),
 	providerid VARCHAR(100),
-	patientrole INT,
+	patientrole VARCHAR(100),
 	givenname VARCHAR(100),
 	familyname VARCHAR(100),
 	suffix VARCHAR(100),
