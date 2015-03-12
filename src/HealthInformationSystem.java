@@ -25,14 +25,14 @@ public class HealthInformationSystem {
         String uid;
         uid = reader.next();
         uid.toString();
-        
-        if ( priv == "Patient" || priv == "patient") {
+
+        if ( priv.equals("Patient") || priv.equals("patient") ) {
             PatientView pV = new PatientView(uid);
         }
-        if ( priv == "Doctor" || priv == "doctor" || priv == "Author" || priv == "author" ) {
+        if ( priv.equals("Doctor") || priv.equals("doctor") || priv.equals("Author") || priv.equals("author") ) {
             DrAuthorView d = new DrAuthorView(uid);
         }
-        if ( priv == "Admin" || priv == "admin" ) {
+        if ( priv.equals("Admin") || priv.equals("admin") ) {
             AdminView adv = new AdminView(uid);
         }
 
