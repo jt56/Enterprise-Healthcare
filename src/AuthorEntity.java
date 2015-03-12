@@ -35,7 +35,12 @@ public class AuthorEntity extends AbstractEntity {
 
         this.tableValues = new String[tableKeys.length];
         for(int i = 0; i < tableKeys.length; i++ ) {
-            tableValues[i] = x[i];
+            if ( x[i] == null ) {
+                tableValues[i] = null;
+            }
+            else {
+                tableValues[i] = "'" + x[i] + "'";
+            }
         }
 
         this.createInputString();

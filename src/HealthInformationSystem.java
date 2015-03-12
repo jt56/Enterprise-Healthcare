@@ -2,10 +2,10 @@
 public class HealthInformationSystem {
 
     public static void main(String[] args) {
-//        String hme_vals[] = new String[]{"pat2", "prov", "patrole", "give", "fam", "suf", "gen", "birth", "xml"};
-//        PatientEntity pat = new PatientEntity(hme_vals);
-//        pat.run();
-//
+        String hme_vals[] = new String[]{"pat2", "prov", "patrole", "give", null, "suf", "gen", "birth", "xml"};
+        PatientEntity pat = new PatientEntity(hme_vals);
+        pat.run();
+
 //        GuardianEntity grd = new GuardianEntity();
 //        grd.run();
 //
@@ -26,10 +26,6 @@ public class HealthInformationSystem {
 //
 //        PlanEntity pln = new PlanEntity();
 //        pln.run();
-
-
-        MessageExchangeSystem m = new MessageExchangeSystem();
-        m.run();
     }
     
 }

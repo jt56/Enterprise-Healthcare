@@ -82,9 +82,9 @@ public abstract class AbstractEntity {
         this.query += this.tableKeys[col] + " ) VALUES ( ";
 
         for ( col = 0; col < tableValues.length - 1; col++ ) {
-            this.query += "'" +  this.tableValues[col] + "', ";
+            this.query += this.tableValues[col] + ", ";
         }
-        this.query += "'" +  this.tableValues[col] + "' );";
+        this.query += this.tableValues[col] + " );";
     }
     
     public Connection getConnection() throws SQLException {
