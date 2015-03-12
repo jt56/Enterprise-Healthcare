@@ -22,9 +22,9 @@ public class AuthorEntity extends AbstractEntity {
     public AuthorEntity() {
         this.tableName = "Author";
         this.tableKeys = new String[]{"authorid", "authortitle", "authorfirstname", "authorlastname"};
-        this.tableValues = new String[]{"'auth'", "'atitl'", "'afir'", "'alas'"};
-
-        this.createInputString();
+//        this.tableValues = new String[]{"'auth'", "'atitl'", "'afir'", "'alas'"};
+//
+//        this.createInputString();
 
     }
 
@@ -45,6 +45,8 @@ public class AuthorEntity extends AbstractEntity {
 
         this.createInputString();
     }
+
+
     
     /*
     ######################

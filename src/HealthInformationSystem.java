@@ -56,11 +56,14 @@ public class HealthInformationSystem {
         MessageExchangeSystem mes = new MessageExchangeSystem();
         mes.run();
         
-        PatientView pV = new PatientView("0");
-
-        PatientView pV2 = new PatientView("12444");
-
-        DrAuthorView d = new DrAuthorView("12444");
+//        PatientView pV = new PatientView("0");
+//
+//        PatientView pV2 = new PatientView("12444");
+//
+//        DrAuthorView d = new DrAuthorView("12444");
+        
+        AdminView adv = new AdminView("12444");
+        
 
 
     }

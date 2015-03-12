@@ -97,6 +97,8 @@ public class AllergyEntity extends AbstractEntity {
 //        this.tableKeys = new String[]{"id", "substance", "patientid", "reaction", "status"};
 //        retrieveAllergy(userId);
 
+        System.out.println("ALLERGY INFO");
+        
         System.out.print("id: ");
         System.out.println(getId());
 
@@ -106,7 +108,7 @@ public class AllergyEntity extends AbstractEntity {
         System.out.print("patientid: ");
         System.out.println(getPatientId());
 
-        System.out.print("reatction: ");
+        System.out.print("reatation: ");
         System.out.println(getReaction());
 
         System.out.print("status: ");
